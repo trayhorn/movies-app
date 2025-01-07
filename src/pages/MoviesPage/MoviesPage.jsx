@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { getSearchedMovies } from "../../api";
 
 export default function MoviesPage() {
   const [query, setQuery] = useState('');
   const [searchedMovies, setSearchedMovies] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams, setSearchParams] = useSearchParams();
+	
+	const location = useLocation();
 
 	const searchQuery = searchParams.get('query') ?? '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setQuery(e.target.elements.search.value);
 	}
 
@@ -57,7 +58,9 @@ export default function MoviesPage() {
 				{searchedMovies.map((movie) => {
 					return (
 						<li key={movie.id}>
-							<Link to={`${movie.id}`}>{movie.title}</Link>
+							<Link to={`${movie.id}`} state={{ from: location }}>
+								{movie.title}
+							</Link>
 						</li>
 					);
 				})}

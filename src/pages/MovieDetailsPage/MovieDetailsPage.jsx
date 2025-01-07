@@ -1,12 +1,14 @@
-import { useParams } from "react-router-dom";
-import { Link, Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
 import { getMovieDetails } from "../../api";
 
 
 export default function MovieDetailsPage() {
   const [movieDetails, setMovieDetails] = useState({});
-  const { movieId } = useParams();
+	const { movieId } = useParams();
+	const location = useLocation();
+
+	const backLinkRef = useRef(location.state?.from ?? "/movies");
 
   useEffect(() => {
     getMovieDetails(movieId)
@@ -16,6 +18,7 @@ export default function MovieDetailsPage() {
 
   return (
 		<main>
+			<Link to={backLinkRef.current}>Go back</Link>
 			<div>
 				<img
 					src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
