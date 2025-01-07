@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { getSearchedMovies } from "../../api";
 
 export default function MoviesPage() {
   const [query, setQuery] = useState('');
   const [searchedMovies, setSearchedMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get('query') ?? '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,7 +16,6 @@ export default function MoviesPage() {
   }
 
   useEffect(() => {
-    console.log('calling useEffect');
     if (query === '') {
       return;
     } else {
@@ -34,18 +36,25 @@ export default function MoviesPage() {
 			<h1>Movies</h1>
 			<form onSubmit={handleSubmit}>
 				<label htmlFor="input1">Find the movie</label>
-				<input autoComplete="off" type="text" name="search" id="input1" />
+				<input
+					autoComplete="off"
+					type="text"
+					name="search"
+					id="input1"
+					value={searchQuery}
+					onChange={(e) => setSearchParams({ query: e.target.value })}
+				/>
 				<button type="submit">Search</button>
-      </form>
-      <ul>
-        {searchedMovies.map((movie) => {
-          return (
+			</form>
+			<ul>
+				{searchedMovies.map((movie) => {
+					return (
 						<li key={movie.id}>
 							<Link to={`${movie.id}`}>{movie.title}</Link>
 						</li>
 					);
-        })}
-      </ul>
+				})}
+			</ul>
 		</main>
 	);
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getPopularMovies } from "../../api";
 
 export default function HomePage() {
@@ -23,7 +24,7 @@ export default function HomePage() {
 				{movies.map((movie) => {
 					return (
 						<li key={movie.id}>
-							<a href="#">{movie.title}</a>
+							<Link to={`/movies/${movie.id}`}>{movie.title}</Link>
 						</li>
 					);
 				})}
