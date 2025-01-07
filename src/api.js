@@ -14,3 +14,7 @@ export function getSearchedMovies(query) {
   return axios.get(`/search/movie?query=${query}`);
 }
 
+export function getMovieDetails(movieId) {
+  return axios.get(`/movie/${movieId}`);
+}
+

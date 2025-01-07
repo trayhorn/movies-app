@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getSearchedMovies } from "../../api";
 
 export default function MoviesPage() {
@@ -38,7 +39,11 @@ export default function MoviesPage() {
       </form>
       <ul>
         {searchedMovies.map((movie) => {
-          return <li key={movie.id}>{movie.title}</li>
+          return (
+						<li key={movie.id}>
+							<Link to={`${movie.id}`}>{movie.title}</Link>
+						</li>
+					);
         })}
       </ul>
 		</main>
