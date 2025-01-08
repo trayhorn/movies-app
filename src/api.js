@@ -18,3 +18,10 @@ export function getMovieDetails(movieId) {
   return axios.get(`/movie/${movieId}`);
 }
 
+export function getMovieCast(movieId) {
+  return axios.get(`movie/${movieId}/credits`);
+}
+
+export function getMovieReviews(movieId) {
+  return axios.get(`movie/${movieId}/reviews`);
+}

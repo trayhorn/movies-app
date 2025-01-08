@@ -1,8 +1,11 @@
 import HomePage from './pages/HomePage/HomePage';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
 import MovieDetailsPage from './pages/MovieDetailsPage/MovieDetailsPage';
+import Navigation from './components/Navigation/Navigation';
+import MovieCast from './components/MovieCast/MovieCast';
+import MovieReviews from './components/MovieReviews/MovieReviews';
 import NotFound from './pages/NotFound/NotFound';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -10,21 +13,14 @@ function App() {
   return (
 		<>
 			<header>
-				<nav>
-					<NavLink className="navLink" to={"/"}>
-						Home
-					</NavLink>
-					<NavLink className="navLink" to={"/movies"}>
-						Movies
-					</NavLink>
-				</nav>
+				<Navigation />
 			</header>
 			<Routes>
 				<Route path="/" element={<HomePage />} />
 				<Route path="/movies" element={<MoviesPage />} />
 				<Route path="/movies/:movieId" element={<MovieDetailsPage />}>
-					<Route path="cast" element={<div>This is Cast</div>} />
-					<Route path="reviews" element={<div>This is reviews</div>} />
+					<Route path="cast" element={<MovieCast />} />
+					<Route path="reviews" element={<MovieReviews />} />
 				</Route>
 				<Route path="*" element={<NotFound />} />
 			</Routes>

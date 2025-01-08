@@ -1,0 +1,32 @@
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.galleryItem {
+  background-color: var(--secondary-bg-color);
+}
+.galleryItem:hover,
+.galleryItem:active,
+.galleryItem:focus {
+  background-color: var(--secondary-accent-color);
+}
+
+.link {
+  text-decoration: none;
+}
+
+.poster {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.movieTitle {
+  color: var(--primary-text-color);
+  text-align: center;
+}
