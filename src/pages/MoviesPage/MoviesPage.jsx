@@ -12,31 +12,25 @@ export default function MoviesPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setQuery(e.target.elements.search.value);
+    setSearchParams({ query });
 	}
 
-	const updateQuery = (e) => {
-		const query = e.target.value;
-		query !== ''
-			? setSearchParams({ query })
-			: setSearchParams({})
-	}
-
-  useEffect(() => {
-    if (query === '') {
-      return;
-    } else {
-      async function findMovie() {
+	useEffect(() => {
+		if (searchQuery === "") {
+			return;
+		} else {
+			async function findMovie() {
 				try {
-					const { data } = await getSearchedMovies(query);
+					const { data } = await getSearchedMovies(searchQuery);
 					setSearchedMovies(data.results);
 				} catch (error) {
 					console.log(error);
 				}
 			}
 			findMovie();
-    }
-  }, [query])
+		}
+	}, [searchQuery]);
+
   return (
 		<main>
 			<h1>Movies</h1>
@@ -47,12 +41,12 @@ export default function MoviesPage() {
 					type="text"
 					name="search"
 					id="input1"
-					value={searchQuery}
-					onChange={updateQuery}
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
 				/>
 				<button type="submit">Search</button>
 			</form>
-			{query && (
+			{searchQuery !== '' && (
 				<ul>
 					{searchedMovies.map((movie) => {
 						return (
