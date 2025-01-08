@@ -6,9 +6,8 @@ export default function MoviesPage() {
   const [query, setQuery] = useState('');
   const [searchedMovies, setSearchedMovies] = useState([]);
 	const [searchParams, setSearchParams] = useSearchParams();
-	
-	const location = useLocation();
 
+	const location = useLocation();
 	const searchQuery = searchParams.get('query') ?? '';
 
   const handleSubmit = (e) => {
@@ -35,7 +34,6 @@ export default function MoviesPage() {
 					console.log(error);
 				}
 			}
-
 			findMovie();
     }
   }, [query])
@@ -54,17 +52,19 @@ export default function MoviesPage() {
 				/>
 				<button type="submit">Search</button>
 			</form>
-			<ul>
-				{searchedMovies.map((movie) => {
-					return (
-						<li key={movie.id}>
-							<Link to={`${movie.id}`} state={{ from: location }}>
-								{movie.title}
-							</Link>
-						</li>
-					);
-				})}
-			</ul>
+			{query && (
+				<ul>
+					{searchedMovies.map((movie) => {
+						return (
+							<li key={movie.id}>
+								<Link to={`${movie.id}`} state={{ from: location }}>
+									{movie.title}
+								</Link>
+							</li>
+						);
+					})}
+				</ul>
+			)}
 		</main>
 	);
 }
