@@ -1,0 +1,20 @@
+header {
+  padding: var(--spacing-md) var(--spacing-lg);
+  background-color: var(--secondary-bg-color);
+}
+
+.navLink {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--primary-text-color);
+  background-color: var(--secondary-accent-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.navLink + .navLink {
+  margin-left: var(--spacing-md);
+}
+
+.navLink.active {
+  background-color: var(--primary-accent-color);
+}

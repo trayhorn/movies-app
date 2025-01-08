@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPopularMovies } from "../../api";
+import style from "./HomePage.module.css";
 
 export default function HomePage() {
 	const [movies, setMovies] = useState([]);
@@ -19,12 +20,21 @@ export default function HomePage() {
   }, [])
   return (
 		<main>
-			<h1>HomePage</h1>
-			<ul>
+			<h1 className={style.title}>Now trending</h1>
+			<ul className={style.gallery}>
 				{movies.map((movie) => {
 					return (
-						<li key={movie.id}>
-							<Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+						<li className={style.galleryItem} key={movie.id}>
+							<Link to={`/movies/${movie.id}`} className={style.link}>
+								<div>
+									<img 
+										className={style.poster}
+										src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+										alt=""
+									/>
+								</div>
+								<p className={style.movieTitle}>{movie.title}</p>
+							</Link>
 						</li>
 					);
 				})}

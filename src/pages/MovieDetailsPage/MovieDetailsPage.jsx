@@ -1,6 +1,7 @@
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
 import { getMovieDetails } from "../../api";
+import style from './MovieDetailsPage.module.css';
 
 
 export default function MovieDetailsPage() {
@@ -18,7 +19,7 @@ export default function MovieDetailsPage() {
 
   return (
 		<main>
-			<Link to={backLinkRef.current}>Go back</Link>
+			<Link className={style.goBackButton} to={backLinkRef.current}>Go back</Link>
 			<div>
 				<img
 					src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
@@ -27,8 +28,12 @@ export default function MovieDetailsPage() {
 			</div>
 			<h1>{movieDetails.original_title}</h1>
 			<p>{movieDetails.overview}</p>
-			<Link to="cast">Cast</Link>
-			<Link to="reviews">Reviews</Link>
+			<NavLink className={style.link} to="cast">
+				Cast
+			</NavLink>
+			<NavLink className={style.link} to="reviews">
+				Reviews
+			</NavLink>
 			<Outlet />
 		</main>
 	);

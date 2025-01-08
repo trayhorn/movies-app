@@ -1,10 +1,28 @@
+@import '@fontsource/roboto';
+@import '@fontsource/montserrat';
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Roboto", serif;
   line-height: 1.5;
   font-weight: 400;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+
+  --primary-bg-color: #121212;
+  --secondary-bg-color: #1E1E1E;
+  --primary-accent-color: #E50914;
+  --secondary-accent-color: #FFB400;
+  --primary-text-color: #FFFFFF;
+  --secondary-text-color: #A3A3A3;
+  --border-color: #303030;
+  --success-color: #00C853;
+  --error-color: #D32F2F;
+  --font-main: 'Roboto', sans-serif;
+  --font-secondary: 'Montserrat', sans-serif;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
 }
 
 
@@ -12,4 +30,52 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
 }
+
+main {
+  padding: var(--spacing-lg);
+}
+
+/* Primary Colors
+Background (Main):
+
+Hex: #121212
+Description: A deep black-gray background that minimizes eye strain and enhances the content focus.
+Background (Cards/Containers):
+
+Hex: #1E1E1E
+Description: Slightly lighter than the main background for cards, modals, or secondary elements.
+Accent (Highlight):
+
+Hex: #E50914
+Description: A bold red, reminiscent of cinema curtains or movie posters, ideal for buttons and key accents.
+Accent (Secondary):
+
+Hex: #FFB400
+Description: A bright amber for less prominent highlights, like ratings or icons.
+Neutral Colors
+Text (Primary):
+
+Hex: #FFFFFF
+Description: Clean white for primary text to ensure readability.
+Text (Secondary):
+
+Hex: #A3A3A3
+Description: Light gray for secondary or muted text.
+Borders/Dividers:
+
+Hex: #303030
+Description: Subtle gray for dividers, outlines, or hover states.
+Supportive Colors
+Success (Optional):
+
+Hex: #00C853
+Description: Vibrant green for success messages (e.g., added to favorites).
+Error (Optional):
+
+Hex: #D32F2F
+Description: A dark red for errors or validation messages.
+
+*/

@@ -1,0 +1,16 @@
+.link {
+  text-decoration: none;
+  color: var(--primary-text-color);
+}
+.link + .link {
+  margin-left: var(--spacing-md);
+}
+
+.goBackButton {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--primary-text-color);
+  background-color: var(--secondary-bg-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
