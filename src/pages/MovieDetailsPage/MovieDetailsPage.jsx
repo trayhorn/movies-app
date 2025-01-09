@@ -19,7 +19,7 @@ export default function MovieDetailsPage() {
   }, [movieId]);
 
   return (
-		<main>
+		<>
 			<Link className={style.goBackButton} to={backLinkRef.current}>
 				Go back
 			</Link>
@@ -42,6 +42,6 @@ export default function MovieDetailsPage() {
 				Reviews
 			</NavLink>
 			<Outlet />
-		</main>
+		</>
 	);
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getSearchedMovies } from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
+import style from './MoviesPage.module.css';
 
 export default function MoviesPage() {
   const [query, setQuery] = useState('');
@@ -32,23 +33,23 @@ export default function MoviesPage() {
 	}, [searchQuery]);
 
   return (
-		<main>
-			<h1>Movies</h1>
-			<form onSubmit={handleSubmit}>
-				<label htmlFor="input1">Find the movie</label>
-				<input
-					autoComplete="off"
-					type="text"
-					name="search"
-					id="input1"
-					value={query}
-					onChange={(e) => setQuery(e.target.value)}
-				/>
-				<button type="submit">Search</button>
+		<>
+			<form className={style.searchForm} onSubmit={handleSubmit}>
+				<label className={style.searchLabel}>
+					What are you looking for?
+					<input
+						className={style.searchInput}
+						autoComplete="off"
+						type="text"
+						name="search"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+					/>
+				</label>
+
+				<button className={style.searchButton} type="submit">Search</button>
 			</form>
-			{searchQuery !== "" && (
-				<MoviesList moviesToRender={searchedMovies} />
-			)}
-		</main>
+			{searchQuery !== "" && <MoviesList moviesToRender={searchedMovies} />}
+		</>
 	);
 }

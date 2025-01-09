@@ -19,9 +19,9 @@ export default function HomePage() {
 		fetchMovies();
   }, [])
   return (
-		<main>
+		<>
 			<h1 className={style.title}>Now trending</h1>
 			<MoviesList moviesToRender={movies} />
-		</main>
+		</>
 	);
 }
