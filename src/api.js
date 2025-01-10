@@ -15,7 +15,7 @@ export function getSearchedMovies(query) {
 }
 
 export function getMovieDetails(movieId) {
-  return axios.get(`/movie/${movieId}`);
+  return axios.get(`/movie/${movieId}?append_to_response=videos`);
 }
 
 export function getMovieCast(movieId) {

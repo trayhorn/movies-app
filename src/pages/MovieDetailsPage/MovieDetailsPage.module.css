@@ -7,6 +7,9 @@
   min-width: 300px;
   max-width: 700px;
 }
+.overviewContainer p {
+  margin: var(--spacing-md) 0;
+}
 
 .link {
   text-decoration: none;
@@ -23,4 +26,9 @@
   background-color: var(--secondary-bg-color);
   padding: var(--spacing-sm) var(--spacing-md);
   margin-bottom: var(--spacing-md);
+}
+
+.player {
+  width: 100%;
+  height: 360px;
 }
