@@ -1,0 +1,34 @@
+.actorInfoSection {
+  display: flex;
+  gap: 50px;
+}
+
+.imageContainer-container {
+}
+
+.image {
+
+}
+
+.actorInfo {
+
+}
+
+.actorText {
+  margin: var(--spacing-sm);
+}
+
+.actorMoviesSection {
+
+}
+
+.actorMoviesList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  list-style: none;
+}
+
+.movieTitle {
+  padding: var(--spacing-sm);
+}

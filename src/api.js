@@ -25,3 +25,7 @@ export function getMovieCast(movieId) {
 export function getMovieReviews(movieId) {
   return axios.get(`movie/${movieId}/reviews`);
 }
+
+export function getActorDetails(actorId) {
+  return axios.get(`/person/${actorId}?append_to_response=movie_credits`);
+}

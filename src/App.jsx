@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import SharedLayout from './components/SharedLayout';
 import { lazy } from "react";
 import './App.css';
+import ActorPage from './pages/ActorPage/ActorPage';
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -25,6 +26,7 @@ function App() {
 					<Route path="cast" element={<MovieCast />} />
 					<Route path="reviews" element={<MovieReviews />} />
 				</Route>
+				<Route path='/actors/:actorId' element={<ActorPage />} />
 				<Route path="*" element={<NotFound />} />
 			</Route>
 		</Routes>

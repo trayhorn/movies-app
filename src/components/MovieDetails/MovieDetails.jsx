@@ -14,7 +14,8 @@ export default function MovieDetails({ detailsToRender }) {
 
   const trailer =
 		videos.results.find((el) => el.name === "Official Trailer") ||
-		videos.results.filter((el) => el.type === "Trailer")[0];
+		videos.results.filter((el) => el.type === "Trailer")[0] ||
+		videos.results[0];
 
 	return (
 		<div className={style.detailsContainer}>

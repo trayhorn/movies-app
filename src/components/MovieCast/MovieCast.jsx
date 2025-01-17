@@ -1,6 +1,6 @@
 import { getMovieCast } from "../../api";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import style from './MovieCast.module.css';
 
 export default function MovieCast() {
@@ -18,14 +18,16 @@ export default function MovieCast() {
       {cast.filter(el => el.profile_path !== null).map(({ id, name, profile_path }) => {
         return (
 					<li className={style.actorCard} key={id}>
-						<div>
-              <img
-                className={style.actorPoster}
-								src={`https://image.tmdb.org/t/p/w200${profile_path}`}
-								alt=""
-							/>
-						</div>
-						<p className={style.actorName}>{name}</p>
+						<Link to={`/actors/${id}`}>
+							<div>
+								<img
+									className={style.actorPoster}
+									src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+									alt=""
+								/>
+							</div>
+							<p className={style.actorName}>{name}</p>
+						</Link>
 					</li>
 				);
       })}
