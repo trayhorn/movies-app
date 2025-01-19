@@ -4,6 +4,7 @@ import SharedLayout from './components/SharedLayout';
 import { lazy } from "react";
 import './App.css';
 import ActorPage from './pages/ActorPage/ActorPage';
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -27,6 +28,7 @@ function App() {
 					<Route path="reviews" element={<MovieReviews />} />
 				</Route>
 				<Route path='/actors/:actorId' element={<ActorPage />} />
+				<Route path='/favorites' element={<FavoritesPage />} />
 				<Route path="*" element={<NotFound />} />
 			</Route>
 		</Routes>

@@ -23,15 +23,41 @@
   background-color: var(--secondary-accent-color);
   border: 1px solid var(--secondary-accent-color);
 }
+.galleryItem:hover .favoritesIcon {
+  opacity: 0.65;
+}
 
 .link {
   text-decoration: none;
+}
+
+.posterContainer {
+  position: relative;
 }
 
 .poster {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.favoritesButton {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.favoritesIcon {
+  display: block;
+  color: var(--primary-accent-color);
+  opacity: 0;
+  cursor: pointer;
+}
+.favoritesButton:hover .favoritesIcon{
+  opacity: 1;
 }
 
 .movieTitle {
