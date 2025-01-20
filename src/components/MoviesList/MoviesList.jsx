@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import style from './MoviesList.module.css';
 import { GoHeartFill } from "react-icons/go";
 import { FaHeartBroken } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { getFavoriteMovies } from "../../api";
+import { alreadyInFavoritesToast } from "../../toasts";
+// import { toast } from "react-toastify";
 
 export default function MoviesList({
 	moviesToRender,
@@ -12,14 +14,19 @@ export default function MoviesList({
 }) {
 	const location = useLocation();
 
-	const onIconClick = (e, movieId) => {
+	const onIconClick = async (e, movieId) => {
 		e.preventDefault();
-		handleFavorites(movieId);
-		// if (icon === "add") {
-		// 	toast.info("Added to favorites");
-		// } else {
-		// 	toast.info("Removed from favorites");
-		// }
+		try {
+			const { data } = await getFavoriteMovies();
+			const existingFavorite = data.results.find(el => el.id === movieId);
+			if (existingFavorite) {
+				alreadyInFavoritesToast();
+				return;
+			}
+			handleFavorites(movieId);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	return (
