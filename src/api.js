@@ -49,5 +49,5 @@ export function removeFromFavorites(movie_id) {
 		media_type: "movie",
 		favorite: false,
 	};
-	return axios.post(`/account/16758631/favorite`, body);
+	return axios.post(`/account/16758631/favrite`, body);
 }

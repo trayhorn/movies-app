@@ -1,32 +1,45 @@
 import { useEffect, useState } from "react";
-import { getFavoriteMovies } from "../../api";
+import { getFavoriteMovies, removeFromFavorites } from "../../api";
+import Loader from "../../components/utils/Loader";
 import MoviesList from "../../components/MoviesList/MoviesList";
-import { removeFromFavorites } from "../../api";
+import { errorToast } from "../../toasts";
 
 export default function FavoritesPage() {
 	const [favorites, setFavorites] = useState([]);
-
-	const fetchFavorites = () => {
-		getFavoriteMovies()
-			.then((res) => setFavorites(res.data.results))
-			.catch((e) => console.log(e));
-	}
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
 	const removeMovieFromFavorites = async (movieId) => {
 		try {
 			await removeFromFavorites(movieId);
-			fetchFavorites();
+			const { data } = await getFavoriteMovies();
+			setFavorites(data.results);
 		} catch (error) {
-			console.log(error);
+			errorToast();
+			console.log(error.message);
 		}
 	};
 
   useEffect(() => {
+		async function fetchFavorites() {
+			try {
+				setLoading(true);
+				const { data } = await getFavoriteMovies();
+				setFavorites(data.results);
+			} catch (error) {
+				console.log(error.message);
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		}
+
 		fetchFavorites();
 	}, []);
 
 	return (
 		<>
+			{loading && <Loader />}
 			{favorites && (
 				<MoviesList
 					moviesToRender={favorites}
@@ -34,6 +47,7 @@ export default function FavoritesPage() {
 					icon={"remove"}
 				/>
 			)}
+			{error && <div>Something went wrong</div>}
 		</>
 	);
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getSearchedMovies } from "../../api";
+import { getSearchedMovies, addToFavorites } from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import style from './MoviesPage.module.css';
 
@@ -47,9 +47,16 @@ export default function MoviesPage() {
 					/>
 				</label>
 
-				<button className={style.searchButton} type="submit">Search</button>
+				<button className={style.searchButton} type="submit">
+					Search
+				</button>
 			</form>
-			{searchQuery !== "" && <MoviesList moviesToRender={searchedMovies} />}
+			{searchQuery !== "" && (
+				<MoviesList
+					moviesToRender={searchedMovies}
+					handleFavorites={addToFavorites}
+				/>
+			)}
 		</>
 	);
 }

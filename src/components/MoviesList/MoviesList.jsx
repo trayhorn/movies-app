@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import style from './MoviesList.module.css';
 import { GoHeartFill } from "react-icons/go";
 import { FaHeartBroken } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function MoviesList({
 	moviesToRender,
@@ -10,6 +11,16 @@ export default function MoviesList({
 	icon = "add",
 }) {
 	const location = useLocation();
+
+	const onIconClick = (e, movieId) => {
+		e.preventDefault();
+		handleFavorites(movieId);
+		// if (icon === "add") {
+		// 	toast.info("Added to favorites");
+		// } else {
+		// 	toast.info("Removed from favorites");
+		// }
+	}
 
 	return (
 		<ul className={style.gallery}>
@@ -29,10 +40,7 @@ export default function MoviesList({
 								/>
 								<button
 									className={style.favoritesButton}
-									onClick={(e) => {
-										e.preventDefault();
-										handleFavorites(movie.id);
-									}}
+									onClick={(e) => onIconClick(e, movie.id)}
 								>
 									{icon === "add" ? (
 										<GoHeartFill size={30} className={style.favoritesIcon} />

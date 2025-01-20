@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { getPopularMovies } from "../../api";
+import { getPopularMovies, addToFavorites } from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import style from "./HomePage.module.css";
 import Loader from "../../components/utils/Loader";
-import { addToFavorites } from "../../api";
+
 
 export default function HomePage() {
 	const [movies, setMovies] = useState([]);
@@ -29,9 +29,13 @@ export default function HomePage() {
 			<h1 className={style.title}>Now trending</h1>
 			{loading ? (
 				<Loader />
-			) : (
-				<MoviesList moviesToRender={movies} handleFavorites={addToFavorites} />
-			)}
+			) : movies ? (
+					<MoviesList
+						moviesToRender={movies}
+						handleFavorites={addToFavorites}
+					/>
+				) : <div>Error</div>
+			}
 		</>
 	);
 }
