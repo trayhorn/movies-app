@@ -3,6 +3,7 @@ import { getPopularMovies } from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import style from "./HomePage.module.css";
 import Loader from "../../components/utils/Loader";
+import { addToFavorites } from "../../api";
 
 export default function HomePage() {
 	const [movies, setMovies] = useState([]);
@@ -19,7 +20,6 @@ export default function HomePage() {
 			} finally {
 				setLoading(false);
 			}
-			
 		}
 
 		fetchMovies();
@@ -27,7 +27,11 @@ export default function HomePage() {
   return (
 		<>
 			<h1 className={style.title}>Now trending</h1>
-			{loading ? <Loader /> : <MoviesList moviesToRender={movies} />}
+			{loading ? (
+				<Loader />
+			) : (
+				<MoviesList moviesToRender={movies} handleFavorites={addToFavorites} />
+			)}
 		</>
 	);
 }

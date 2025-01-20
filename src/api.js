@@ -6,8 +6,6 @@ const TOKEN =
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
 axios.defaults.headers.common["Authorization"] = TOKEN;
 
-// const account_id = 16758631;
-
 export function getPopularMovies() {
   return axios.get("/movie/popular");
 }
@@ -36,11 +34,20 @@ export function getFavoriteMovies(account_id) {
   return axios.get(`/account/${account_id}/favorite/movies`)
 }
 
-export function addToFavorites(account_id, movie_id) {
+export function addToFavorites(movie_id) {
   const body = {
 		media_id: movie_id,
 		media_type: "movie",
-		favorite: true,
+		favorite: true
 	};
-  return axios.post(`/account/${account_id}/favorite`, body);
+  return axios.post(`/account/16758631/favorite`, body);
+}
+
+export function removeFromFavorites(movie_id) {
+	const body = {
+		media_id: movie_id,
+		media_type: "movie",
+		favorite: false,
+	};
+	return axios.post(`/account/16758631/favorite`, body);
 }

@@ -2,16 +2,16 @@ import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import style from './MoviesList.module.css';
 import { GoHeartFill } from "react-icons/go";
-import { addToFavorites } from "../../api";
+import { FaHeartBroken } from "react-icons/fa";
 
-export default function MoviesList({ moviesToRender }) {
-  const location = useLocation();
+export default function MoviesList({
+	moviesToRender,
+	handleFavorites,
+	icon = "add",
+}) {
+	const location = useLocation();
 
-  const handleIconClick = async (e, movieId) => {
-    e.preventDefault();
-    await addToFavorites(16758631, movieId);
-  }
-  return (
+	return (
 		<ul className={style.gallery}>
 			{moviesToRender.map((movie) => {
 				return (
@@ -25,13 +25,20 @@ export default function MoviesList({ moviesToRender }) {
 								<img
 									className={style.poster}
 									src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-									alt=""
+									alt={movie.title}
 								/>
 								<button
 									className={style.favoritesButton}
-									onClick={(e) => handleIconClick(e, movie.id)}
+									onClick={(e) => {
+										e.preventDefault();
+										handleFavorites(movie.id);
+									}}
 								>
-									<GoHeartFill size={30} className={style.favoritesIcon} />
+									{icon === "add" ? (
+										<GoHeartFill size={30} className={style.favoritesIcon} />
+									) : (
+										<FaHeartBroken size={30} className={style.favoritesIcon} />
+									)}
 								</button>
 							</div>
 							<p className={style.movieTitle}>{movie.title}</p>
@@ -44,5 +51,7 @@ export default function MoviesList({ moviesToRender }) {
 }
 
 MoviesList.propTypes = {
-	moviesToRender: PropTypes.arrayOf(PropTypes.shape)
+	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
+	handleFavorites: PropTypes.func,
+	icon: PropTypes.string
 };
