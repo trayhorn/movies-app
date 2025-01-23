@@ -34,6 +34,10 @@ export function getFavoriteMovies(account_id) {
   return axios.get(`/account/${account_id}/favorite/movies`)
 }
 
+export function getAllGenres() {
+  return axios.get("/genre/movie/list");
+}
+
 export function addToFavorites(movie_id) {
   const body = {
 		media_id: movie_id,
@@ -49,5 +53,5 @@ export function removeFromFavorites(movie_id) {
 		media_type: "movie",
 		favorite: false,
 	};
-	return axios.post(`/account/16758631/favrite`, body);
+	return axios.post(`/account/16758631/favorite`, body);
 }

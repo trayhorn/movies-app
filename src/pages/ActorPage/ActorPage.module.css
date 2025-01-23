@@ -7,7 +7,6 @@
 }
 
 .image {
-
 }
 
 .actorInfo {
@@ -29,6 +28,13 @@
   list-style: none;
 }
 
+.moviesPoster {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 .movieTitle {
+  text-align: center;
   padding: var(--spacing-sm);
 }

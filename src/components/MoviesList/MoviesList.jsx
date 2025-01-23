@@ -5,7 +5,6 @@ import { GoHeartFill } from "react-icons/go";
 import { FaHeartBroken } from "react-icons/fa";
 import { getFavoriteMovies } from "../../api";
 import { alreadyInFavoritesToast } from "../../toasts";
-// import { toast } from "react-toastify";
 
 export default function MoviesList({
 	moviesToRender,
@@ -19,7 +18,7 @@ export default function MoviesList({
 		try {
 			const { data } = await getFavoriteMovies();
 			const existingFavorite = data.results.find(el => el.id === movieId);
-			if (existingFavorite) {
+			if (existingFavorite && icon === 'add') {
 				alreadyInFavoritesToast();
 				return;
 			}

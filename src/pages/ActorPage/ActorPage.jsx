@@ -39,19 +39,22 @@ export default function ActorPage() {
 						.sort((a, b) => b.vote_count - a.vote_count)
 						.map((movie) => {
 							return (
-								<Link
-									key={movie.id}
-									state={{ from: location }}
-									to={`/movies/${movie.id}`}
-								>
-									<div>
-										<img
-											src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
-											alt={movie.original_title}
-										/>
-									</div>
-									<p className={style.movieTitle}>{movie.original_title}</p>
-								</Link>
+								<li key={movie.id}>
+									<Link
+										key={movie.id}
+										state={{ from: location }}
+										to={`/movies/${movie.id}`}
+									>
+										<div>
+											<img
+												className={style.moviesPoster}
+												src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+												alt={movie.original_title}
+											/>
+										</div>
+										<p className={style.movieTitle}>{movie.original_title}</p>
+									</Link>
+								</li>
 							);
             })
           }
