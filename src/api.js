@@ -38,6 +38,12 @@ export function getAllGenres() {
   return axios.get("/genre/movie/list");
 }
 
+export function discoverMovie(genres, year, vote_average) {
+  return axios.get(
+		`/discover/movie?include_adult=false&include_video=false&page=1&sort_by=popularity.desc&vote_average.gte=${vote_average}&with_genres=${genres}&year=${year}`
+	);
+}
+
 export function addToFavorites(movie_id) {
   const body = {
 		media_id: movie_id,

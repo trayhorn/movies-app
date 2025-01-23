@@ -1,19 +1,30 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getSearchedMovies, addToFavorites, getAllGenres } from "../../api";
+import {
+	getSearchedMovies,
+	addToFavorites,
+	getAllGenres,
+	discoverMovie,
+} from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import style from './MoviesPage.module.css';
+import { Formik, Field, Form } from "formik";
 
 export default function MoviesPage() {
-  const [query, setQuery] = useState('');
-  const [searchedMovies, setSearchedMovies] = useState([]);
+	const [searchedMovies, setSearchedMovies] = useState([]);
+	const [filteredMovies, setFilteredMovies] = useState([]);
+	const [genresList, setGenresList] = useState('');
 	const [searchParams, setSearchParams] = useSearchParams();
-	const [genres, setGenres] = useState('');
 
 	const searchQuery = searchParams.get('query') ?? '';
+	const year = searchParams.get('year') ?? '';
+	const genres = searchParams.get("genres") ?? "";
+	const vote_average = searchParams.get("vote_average") ?? "";
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+		e.preventDefault();
+		const query = e.target.elements.search.value;
+		if (query === '') alert('Your query is empty!');
     setSearchParams({ query });
 	}
 
@@ -21,7 +32,7 @@ export default function MoviesPage() {
 		async function renderGenres() {
 			try {
 				const {data} = await getAllGenres();
-				setGenres(data.genres);
+				setGenresList(data.genres);
 			} catch (error) {
 				console.log(error);
 			}
@@ -32,7 +43,6 @@ export default function MoviesPage() {
 
 	useEffect(() => {
 		if (searchQuery === "") {
-			alert('Your query is empty!')
 			return;
 		} else {
 			async function findMovie() {
@@ -47,6 +57,19 @@ export default function MoviesPage() {
 		}
 	}, [searchQuery]);
 
+	useEffect(() => {
+		async function getFilteredMovies() {
+			try {
+				const { data } = await discoverMovie(genres, year, vote_average);
+				setFilteredMovies(data.results);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+
+		getFilteredMovies();
+	}, [year, genres, vote_average]);
+
   return (
 		<>
 			<form className={style.searchForm} onSubmit={handleSubmit}>
@@ -57,8 +80,6 @@ export default function MoviesPage() {
 						autoComplete="off"
 						type="text"
 						name="search"
-						value={query}
-						onChange={(e) => setQuery(e.target.value)}
 					/>
 				</label>
 
@@ -67,22 +88,38 @@ export default function MoviesPage() {
 				</button>
 			</form>
 
-			<form>
-				{genres && (
-					<select name="genres">
-						{genres.map(({ id, name }) => {
-							return (
-								<option key={id} value={id}>
-									{name}
-								</option>
-							);
-						})}
-					</select>
-				)}
-				<input type="text" name="year" />
-				<input type="number" name="vote_average" />
-				<button type="submit">Search</button>
-			</form>
+			{genresList && (
+				<Formik
+					initialValues={{
+						genres: "80",
+						year: "2012",
+						vote_average: "6",
+					}}
+					onSubmit={(values) => setSearchParams({ ...values })}
+				>
+					<Form>
+						<Field component="select" name="genres">
+							{genresList.map(({ id, name }) => {
+								return (
+									<option key={id} value={id}>
+										{name}
+									</option>
+								);
+							})}
+						</Field>
+						<Field type="text" name="year" />
+						<Field type="number" name="vote_average" />
+						<button type="submit">Search</button>
+					</Form>
+				</Formik>
+			)}
+
+			{filteredMovies && (
+				<MoviesList
+					moviesToRender={filteredMovies}
+					handleFavorites={addToFavorites}
+				/>
+			)}
 
 			{searchQuery !== "" && (
 				<MoviesList
