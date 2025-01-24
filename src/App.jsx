@@ -5,6 +5,7 @@ import { lazy } from "react";
 import './App.css';
 import ActorPage from './pages/ActorPage/ActorPage';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -22,6 +23,7 @@ function App() {
 		<Routes>
 			<Route path="/" element={<SharedLayout />}>
 				<Route index element={<HomePage />} />
+				<Route path='/search' element={<SearchPage />} />
 				<Route path="/movies" element={<MoviesPage />} />
 				<Route path="/movies/:movieId" element={<MovieDetailsPage />}>
 					<Route path="cast" element={<MovieCast />} />

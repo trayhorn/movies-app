@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navigation from "./Navigation/Navigation";
+import Header from "./Header/Header";
 import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 
@@ -7,7 +7,7 @@ import { ToastContainer } from "react-toastify";
 export default function SharedLayout() {
   return (
 		<>
-			<Navigation />
+			<Header />
 			<main>
 				<Suspense fallback={<div>Loading...</div>}>
 					<Outlet />

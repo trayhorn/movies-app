@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
+import SearchForm from "../SeearchForm/SearchForm";
 
-export default function Navigation() {
-  return (
+export default function Header() {
+	return (
 		<header>
 			<nav>
 				<NavLink className="navLink" to="/">
@@ -14,6 +15,8 @@ export default function Navigation() {
 					Favorites
 				</NavLink>
 			</nav>
+
+			<SearchForm />
 		</header>
 	);
 }

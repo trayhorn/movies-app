@@ -1,0 +1,23 @@
+.searchForm {
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+
+.searchLabel {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+}
+
+.searchInput {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+.searchButton {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--secondary-accent-color);
+  background-color: var(--secondary-accent-color);
+  font-weight: 500;
+  cursor: pointer;
+}
