@@ -4,6 +4,10 @@ export function errorToast() {
   return toast.error("Something went wrong");
 }
 
-export function alreadyInFavoritesToast() {
-  return toast.error('Already in favorites');
+export function addedToFavoritesToast() {
+  return toast.success('Added to favorites');
+}
+
+export function removedFromFavoritesToast() {
+  return toast.success('Removed from favorites');
 }

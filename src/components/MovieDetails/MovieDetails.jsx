@@ -1,8 +1,16 @@
 import style from './MovieDetails.module.css';
 import PropTypes from 'prop-types';
+import { addToFavorites, getFavoriteMovies, removeFromFavorites } from "../../api";
+import { useEffect, useState } from 'react';
+import {
+	addedToFavoritesToast,
+	removedFromFavoritesToast,
+	errorToast
+} from '../../toasts';
 
 export default function MovieDetails({ detailsToRender }) {
-  const {
+	const {
+		id,
 		poster_path,
 		original_title,
 		overview,
@@ -10,12 +18,50 @@ export default function MovieDetails({ detailsToRender }) {
 		genres,
 		release_date,
 		videos,
-  } = detailsToRender;
+	} = detailsToRender;
+
+	const [isInFavorites, setIsInFavorites] = useState(false);
 
   const trailer =
 		videos.results.find((el) => el.name === "Official Trailer") ||
 		videos.results.filter((el) => el.type === "Trailer")[0] ||
 		videos.results[0];
+	
+	const handleFavorite = async (movieId) => {
+		if (isInFavorites) {
+			try {
+				removeFromFavorites(movieId);
+				removedFromFavoritesToast();
+			} catch (e) {
+				console.log(e);
+				errorToast();
+			}
+		} else {
+			try {
+				await addToFavorites(movieId);
+				addedToFavoritesToast();
+			} catch (e) {
+				console.log(e);
+				errorToast();
+			}
+		}
+		setIsInFavorites((prevState) => !prevState);
+	}
+
+	useEffect(() => {
+		async function checkFavorites() {
+			try {
+				const { data } = await getFavoriteMovies();
+				if (data.results.find((el) => el.id === id)) {
+					setIsInFavorites(true);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}
+
+		checkFavorites();
+	}, [id]);
 
 	return (
 		<div className={style.detailsContainer}>
@@ -24,6 +70,10 @@ export default function MovieDetails({ detailsToRender }) {
 					src={`https://image.tmdb.org/t/p/w400${poster_path}`}
 					alt="poster"
 				/>
+				<button onClick={() => handleFavorite(id)}>
+					{isInFavorites ? "Remove from" : "Add to"} favorites
+				</button>
+				{/* <button>Add to watchlist</button> */}
 			</div>
 			<div className={style.overviewContainer}>
 				<h1>{original_title}</h1>
@@ -45,6 +95,7 @@ export default function MovieDetails({ detailsToRender }) {
 
 MovieDetails.propTypes = {
 	detailsToRender: PropTypes.shape({
+		id: PropTypes.number,
 		poster_path: PropTypes.string,
 		original_title: PropTypes.string,
 		budget: PropTypes.number,

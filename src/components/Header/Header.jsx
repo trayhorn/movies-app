@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import SearchForm from "../SeearchForm/SearchForm";
+import SearchForm from "../SearchForm/SearchForm";
 
 export default function Header() {
 	return (
