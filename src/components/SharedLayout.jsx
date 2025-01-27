@@ -12,7 +12,7 @@ export default function SharedLayout() {
 				<Suspense fallback={<div>Loading...</div>}>
 					<Outlet />
 				</Suspense>
-				<ToastContainer autoClose={3000} />
+				<ToastContainer autoClose={6000} theme="dark" />
 			</main>
 		</>
 	);

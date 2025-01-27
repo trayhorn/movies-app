@@ -26,11 +26,11 @@ export default function MovieDetails({ detailsToRender }) {
 		videos.results.find((el) => el.name === "Official Trailer") ||
 		videos.results.filter((el) => el.type === "Trailer")[0] ||
 		videos.results[0];
-	
+
 	const handleFavorite = async (movieId) => {
 		if (isInFavorites) {
 			try {
-				removeFromFavorites(movieId);
+				await removeFromFavorites(movieId);
 				removedFromFavoritesToast();
 			} catch (e) {
 				console.log(e);

@@ -8,7 +8,6 @@ export default function SearchPage() {
   const [searchParams] = useSearchParams();
 
   const searchQuery = searchParams.get("query") ?? "";
-  console.log(searchQuery);
 
   useEffect(() => {
 		if (searchQuery === "") {
