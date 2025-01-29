@@ -38,9 +38,30 @@ export function getAllGenres() {
   return axios.get("/genre/movie/list");
 }
 
-export function discoverMovie(genres, year, vote_average) {
-  return axios.get(
-		`/discover/movie?include_adult=false&include_video=false&page=1&sort_by=popularity.desc&vote_average.gte=${vote_average}&with_genres=${genres}&year=${year}`
+export function discoverMovie(
+	genres,
+	vote_average,
+	release_date_from,
+	release_date_to
+) {
+	const params = new URLSearchParams({
+		include_video: false,
+		include_adult: false,
+  });
+  
+  const filters = {
+		"primary_release_date.gte": release_date_from,
+		"primary_release_date.lte": release_date_to,
+		"vote_average.gte": vote_average,
+		"with_genres": genres,
+	};
+
+	Object.entries(filters).forEach(([key, value]) => {
+		if (value) params.append(key, value);
+  });
+
+	return axios.get(
+		`/discover/movie?${params}`
 	);
 }
 

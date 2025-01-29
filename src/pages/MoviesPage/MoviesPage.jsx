@@ -1,7 +1,7 @@
+import style from "./MoviesPage.module.css";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
-	addToFavorites,
 	getAllGenres,
 	discoverMovie,
 } from "../../api";
@@ -13,9 +13,12 @@ export default function MoviesPage() {
 	const [genresList, setGenresList] = useState('');
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const year = searchParams.get('year') ?? '';
-	const genres = searchParams.get("genres") ?? "";
-	const vote_average = searchParams.get("vote_average") ?? "";
+
+	const genres = searchParams.get("genres");
+	const vote_average = searchParams.get("vote_average");
+	const release_date_from = searchParams.get("release_date_from");
+	const release_date_to = searchParams.get("release_date_to");
+
 
 	useEffect(() => {
 		async function renderGenres() {
@@ -31,12 +34,14 @@ export default function MoviesPage() {
 	}, [])
 
 	useEffect(() => {
-		if (year === '' || genres === '' || vote_average === '') {
-			return
-		}
 		async function getFilteredMovies() {
 			try {
-				const { data } = await discoverMovie(genres, year, vote_average);
+				const { data } = await discoverMovie(
+					genres,
+					vote_average,
+					release_date_from,
+					release_date_to
+				);
 				setFilteredMovies(data.results);
 			} catch (error) {
 				console.log(error);
@@ -44,7 +49,7 @@ export default function MoviesPage() {
 		}
 
 		getFilteredMovies();
-	}, [year, genres, vote_average]);
+	}, [genres, release_date_from, release_date_to, vote_average]);
 
   return (
 		<>
@@ -52,12 +57,21 @@ export default function MoviesPage() {
 				<Formik
 					initialValues={{
 						genres: "80",
-						year: "2012",
+						release_date_from: "",
+						release_date_to: "",
 						vote_average: "6",
 					}}
-					onSubmit={(values) => setSearchParams({ ...values })}
+					onSubmit={(values) => {
+						const filteredValues = Object.fromEntries(
+							Object.entries(values).filter(([_, value]) => value !== "")
+						);
+						setSearchParams(filteredValues);
+					}}
 				>
-					<Form>
+					<Form className={style.form}>
+						<label className={style.label} htmlFor="">
+							Genre
+						</label>
 						<Field component="select" name="genres">
 							{genresList.map(({ id, name }) => {
 								return (
@@ -67,7 +81,17 @@ export default function MoviesPage() {
 								);
 							})}
 						</Field>
-						<Field type="text" name="year" />
+						<label className={style.label} htmlFor="">
+							Release date from
+						</label>
+						<Field type="date" name="release_date_from" />
+						<label className={style.label} htmlFor="">
+							Release date to
+						</label>
+						<Field type="date" name="release_date_to" />
+						<label className={style.label} htmlFor="">
+							Vote average
+						</label>
 						<Field type="number" name="vote_average" />
 						<button type="submit">Search</button>
 					</Form>
@@ -75,10 +99,7 @@ export default function MoviesPage() {
 			)}
 
 			{filteredMovies && (
-				<MoviesList
-					moviesToRender={filteredMovies}
-					handleFavorites={addToFavorites}
-				/>
+					<MoviesList moviesToRender={filteredMovies} />
 			)}
 		</>
 	);

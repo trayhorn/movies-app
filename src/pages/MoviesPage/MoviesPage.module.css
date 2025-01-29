@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.label {
+  margin: var(--spacing-sm);
+}
+
+.form button {
+  margin-top: var(--spacing-sm);
+  cursor: pointer;
+}
