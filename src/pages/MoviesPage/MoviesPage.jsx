@@ -17,6 +17,7 @@ export default function MoviesPage() {
 	const vote_average = searchParams.get("vote_average");
 	const release_date_from = searchParams.get("release_date_from");
 	const release_date_to = searchParams.get("release_date_to");
+	const sort_by = searchParams.get('sort_by');
 
 
 	useEffect(() => {
@@ -40,7 +41,8 @@ export default function MoviesPage() {
 					genres,
 					vote_average,
 					release_date_from,
-					release_date_to
+					release_date_to,
+					sort_by
 				);
 
 				if (data.total_pages === page) hasMoreRef.current = false;
@@ -54,7 +56,7 @@ export default function MoviesPage() {
 		}
 
 		getFilteredMovies();
-	}, [genres, release_date_from, release_date_to, vote_average, page]);
+	}, [genres, release_date_from, release_date_to, vote_average, sort_by, page]);
 
   return (
 		<>
@@ -65,6 +67,7 @@ export default function MoviesPage() {
 						release_date_from: "",
 						release_date_to: "",
 						vote_average: "6",
+						sort_by: "popularity.desc",
 					}}
 					onSubmit={(values) => {
 						const filteredValues = Object.fromEntries(
@@ -99,6 +102,30 @@ export default function MoviesPage() {
 							Vote average
 						</label>
 						<Field type="number" name="vote_average" />
+						<label className={style.label} htmlFor="">
+							Sort by
+						</label>
+						<Field component="select" name="sort_by">
+							<option value="original_title.asc">original_title.asc</option>
+							<option value="original_title.desc">original_title.desc</option>
+							<option value="popularity.asc">popularity.asc</option>
+							<option value="popularity.desc">popularity.desc</option>
+							<option value="revenue.asc">revenue.asc</option>
+							<option value="revenue.desc">revenue.desc</option>
+							<option value="primary_release_date.asc">
+								primary_release_date.asc
+							</option>
+							<option value="title.asc">title.asc</option>
+							<option value="title.desc">title.desc</option>
+							<option value="primary_release_date.desc">
+								primary_release_date.desc
+							</option>
+							<option value="vote_average.asc">vote_average.asc</option>
+							<option value="vote_average.desc">vote_average.desc</option>
+							<option value="vote_count.asc">vote_count.asc</option>
+							<option value="vote_count.desc">vote_count.desc</option>
+						</Field>
+
 						<button type="submit">Search</button>
 					</Form>
 				</Formik>

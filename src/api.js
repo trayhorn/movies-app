@@ -43,23 +43,25 @@ export function discoverMovie(
 	genres,
 	vote_average,
 	release_date_from,
-	release_date_to
+	release_date_to,
+	sort_by
 ) {
 	const params = new URLSearchParams({
 		include_video: false,
 		include_adult: false,
-  });
-  
-  const filters = {
+	});
+
+	const filters = {
 		"primary_release_date.gte": release_date_from,
 		"primary_release_date.lte": release_date_to,
 		"vote_average.gte": vote_average,
 		"with_genres": genres,
+		"sort_by": sort_by,
 	};
 
 	Object.entries(filters).forEach(([key, value]) => {
 		if (value) params.append(key, value);
-  });
+	});
 
 	return axios.get(`/discover/movie?page=${page}&${params}`);
 }
