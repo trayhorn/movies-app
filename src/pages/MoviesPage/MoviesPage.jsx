@@ -1,15 +1,13 @@
 import style from "./MoviesPage.module.css";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import {
-	getAllGenres,
-	discoverMovie,
-} from "../../api";
-import MoviesList from "../../components/MoviesList/MoviesList";
+import { getAllGenres, discoverMovie } from "../../api";
+import MoviesSearchList from "../../components/MoviesSearchList/MoviesSearchList";
 import { Formik, Field, Form } from "formik";
 
 export default function MoviesPage() {
 	const [filteredMovies, setFilteredMovies] = useState([]);
+	const [page, setPage] = useState(1);
 	const [genresList, setGenresList] = useState('');
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -37,19 +35,22 @@ export default function MoviesPage() {
 		async function getFilteredMovies() {
 			try {
 				const { data } = await discoverMovie(
+					page,
 					genres,
 					vote_average,
 					release_date_from,
 					release_date_to
 				);
-				setFilteredMovies(data.results);
+				setFilteredMovies((prevState) =>
+					page === 1 ? data.results : [...prevState, ...data.results]
+				);
 			} catch (error) {
 				console.log(error);
 			}
 		}
 
 		getFilteredMovies();
-	}, [genres, release_date_from, release_date_to, vote_average]);
+	}, [genres, release_date_from, release_date_to, vote_average, page]);
 
   return (
 		<>
@@ -65,6 +66,7 @@ export default function MoviesPage() {
 						const filteredValues = Object.fromEntries(
 							Object.entries(values).filter(([_, value]) => value !== "")
 						);
+						setPage(1);
 						setSearchParams(filteredValues);
 					}}
 				>
@@ -98,9 +100,7 @@ export default function MoviesPage() {
 				</Formik>
 			)}
 
-			{filteredMovies && (
-					<MoviesList moviesToRender={filteredMovies} />
-			)}
+			{filteredMovies && <MoviesSearchList moviesToRender={filteredMovies} fetchMore={() => setPage(prev => prev + 1)} />}
 		</>
 	);
 }

@@ -39,6 +39,7 @@ export function getAllGenres() {
 }
 
 export function discoverMovie(
+	page,
 	genres,
 	vote_average,
 	release_date_from,
@@ -60,9 +61,7 @@ export function discoverMovie(
 		if (value) params.append(key, value);
   });
 
-	return axios.get(
-		`/discover/movie?${params}`
-	);
+	return axios.get(`/discover/movie?page=${page}&${params}`);
 }
 
 export function addToFavorites(movie_id) {
