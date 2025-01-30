@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import style from "./MoviesSearchList.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export default function MoviesSearchList({ moviesToRender, fetchMore }) {
+export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore }) {
 	const location = useLocation();
 
 	return (
@@ -11,9 +11,13 @@ export default function MoviesSearchList({ moviesToRender, fetchMore }) {
 			<InfiniteScroll
 				dataLength={moviesToRender.length}
 				next={fetchMore}
-				hasMore={true}
+				hasMore={hasMore}
 				loader={<h4>Loading...</h4>}
 				scrollThreshold="100px"
+				endMessage={
+					<p style={{ textAlign: 'center' }}>
+						<b>Yay! You have seen it all</b>
+					</p>}
 			>
 				{moviesToRender.map((movie) => {
 					return (
@@ -42,5 +46,6 @@ export default function MoviesSearchList({ moviesToRender, fetchMore }) {
 
 MoviesSearchList.propTypes = {
 	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
-	fetchMore: PropTypes.func
+	fetchMore: PropTypes.func,
+	hasMore: PropTypes.bool
 };

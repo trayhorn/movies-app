@@ -1,5 +1,5 @@
 import style from "./MoviesPage.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getAllGenres, discoverMovie } from "../../api";
 import MoviesSearchList from "../../components/MoviesSearchList/MoviesSearchList";
@@ -11,6 +11,7 @@ export default function MoviesPage() {
 	const [genresList, setGenresList] = useState('');
 	const [searchParams, setSearchParams] = useSearchParams();
 
+	const hasMoreRef = useRef(true);
 
 	const genres = searchParams.get("genres");
 	const vote_average = searchParams.get("vote_average");
@@ -41,6 +42,9 @@ export default function MoviesPage() {
 					release_date_from,
 					release_date_to
 				);
+
+				if (data.total_pages === page) hasMoreRef.current = false;
+
 				setFilteredMovies((prevState) =>
 					page === 1 ? data.results : [...prevState, ...data.results]
 				);
@@ -57,7 +61,7 @@ export default function MoviesPage() {
 			{genresList && (
 				<Formik
 					initialValues={{
-						genres: "80",
+						genres: "",
 						release_date_from: "",
 						release_date_to: "",
 						vote_average: "6",
@@ -100,7 +104,13 @@ export default function MoviesPage() {
 				</Formik>
 			)}
 
-			{filteredMovies && <MoviesSearchList moviesToRender={filteredMovies} fetchMore={() => setPage(prev => prev + 1)} />}
+			{filteredMovies && (
+				<MoviesSearchList
+					moviesToRender={filteredMovies}
+					fetchMore={() => setPage((prev) => prev + 1)}
+					hasMore={hasMoreRef.current}
+				/>
+			)}
 		</>
 	);
 }
