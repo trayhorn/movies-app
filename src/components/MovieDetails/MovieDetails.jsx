@@ -1,12 +1,14 @@
 import style from './MovieDetails.module.css';
 import PropTypes from 'prop-types';
-import { addToFavorites, getFavoriteMovies, removeFromFavorites } from "../../api";
+import { addToFavorites, addToWatchList, getFavoriteMovies, getWatchlistMovies, removeFromFavorites, removeFromWatchList } from "../../api";
 import { useEffect, useState } from 'react';
 import {
 	addedToFavoritesToast,
 	removedFromFavoritesToast,
-	errorToast
-} from '../../toasts';
+	removedFromWishListToast,
+	addedToWishListToast,
+	errorToast,
+} from "../../toasts";
 
 export default function MovieDetails({ detailsToRender }) {
 	const {
@@ -21,6 +23,7 @@ export default function MovieDetails({ detailsToRender }) {
 	} = detailsToRender;
 
 	const [isInFavorites, setIsInFavorites] = useState(false);
+	const [inWatchList, setInWatchList] = useState(false);
 
   const trailer =
 		videos.results.find((el) => el.name === "Official Trailer") ||
@@ -48,12 +51,43 @@ export default function MovieDetails({ detailsToRender }) {
 		setIsInFavorites((prevState) => !prevState);
 	}
 
+	const handleWatchList = async (movieId) => {
+		if (inWatchList) {
+			try {
+				await removeFromWatchList(movieId);
+				removedFromWishListToast();
+			} catch (e) {
+				console.log(e);
+				errorToast();
+			}
+		} else {
+			try {
+				await addToWatchList(movieId);
+				addedToWishListToast();
+			} catch (e) {
+				console.log(e);
+				errorToast();
+			}
+		}
+		setInWatchList((prevState) => !prevState);
+	};
+
 	useEffect(() => {
 		async function checkFavorites() {
 			try {
 				const { data } = await getFavoriteMovies();
 				if (data.results.find((el) => el.id === id)) {
-					setIsInFavorites(true);
+					setInWatchList(true);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		async function checkWishList() {
+			try {
+				const { data } = await getWatchlistMovies();
+				if (data.results.find((el) => el.id === id)) {
+					setInWatchList(true);
 				}
 			} catch (error) {
 				console.log(error);
@@ -61,6 +95,7 @@ export default function MovieDetails({ detailsToRender }) {
 		}
 
 		checkFavorites();
+		checkWishList();
 	}, [id]);
 
 	return (
@@ -73,7 +108,9 @@ export default function MovieDetails({ detailsToRender }) {
 				<button onClick={() => handleFavorite(id)}>
 					{isInFavorites ? "Remove from" : "Add to"} favorites
 				</button>
-				{/* <button>Add to watchlist</button> */}
+				<button onClick={() => handleWatchList(id)}>
+					{inWatchList ? "Remove from" : "Add to"} watchlist
+				</button>
 			</div>
 			<div className={style.overviewContainer}>
 				<h1>{original_title}</h1>

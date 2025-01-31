@@ -6,6 +6,7 @@ import './App.css';
 import ActorPage from './pages/ActorPage/ActorPage';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import SearchPage from './pages/SearchPage/SearchPage';
+import WatchList from './pages/WatchList/WatchList';
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -23,14 +24,15 @@ function App() {
 		<Routes>
 			<Route path="/" element={<SharedLayout />}>
 				<Route index element={<HomePage />} />
-				<Route path='/search' element={<SearchPage />} />
+				<Route path="/search" element={<SearchPage />} />
 				<Route path="/movies" element={<MoviesPage />} />
 				<Route path="/movies/:movieId" element={<MovieDetailsPage />}>
 					<Route path="cast" element={<MovieCast />} />
 					<Route path="reviews" element={<MovieReviews />} />
 				</Route>
-				<Route path='/actors/:actorId' element={<ActorPage />} />
-				<Route path='/favorites' element={<FavoritesPage />} />
+				<Route path="/actors/:actorId" element={<ActorPage />} />
+				<Route path="/favorites" element={<FavoritesPage />} />
+				<Route path="/watchlist" element={<WatchList />} />
 				<Route path="*" element={<NotFound />} />
 			</Route>
 		</Routes>

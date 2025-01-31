@@ -14,6 +14,9 @@ export default function Header() {
 				<NavLink className="navLink" to="/favorites">
 					Favorites
 				</NavLink>
+				<NavLink className="navLink" to="/watchlist">
+					Watchlist
+				</NavLink>
 			</nav>
 
 			<SearchBox />

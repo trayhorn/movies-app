@@ -11,3 +11,11 @@ export function addedToFavoritesToast() {
 export function removedFromFavoritesToast() {
   return toast.success('Removed from favorites');
 }
+
+export function addedToWishListToast() {
+	return toast.success("Added to watchlist");
+}
+
+export function removedFromWishListToast() {
+	return toast.success("Removed from watchlist");
+}

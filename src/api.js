@@ -30,12 +30,8 @@ export function getActorDetails(actorId) {
   return axios.get(`/person/${actorId}?append_to_response=movie_credits`);
 }
 
-export function getFavoriteMovies(account_id) {
-  return axios.get(`/account/${account_id}/favorite/movies`)
-}
-
 export function getAllGenres() {
-  return axios.get("/genre/movie/list");
+	return axios.get("/genre/movie/list");
 }
 
 export function discoverMovie(
@@ -50,7 +46,7 @@ export function discoverMovie(
 		include_video: false,
 		include_adult: false,
 	});
-
+	
 	const filters = {
 		"primary_release_date.gte": release_date_from,
 		"primary_release_date.lte": release_date_to,
@@ -58,12 +54,16 @@ export function discoverMovie(
 		"with_genres": genres,
 		"sort_by": sort_by,
 	};
-
+	
 	Object.entries(filters).forEach(([key, value]) => {
 		if (value) params.append(key, value);
 	});
-
+	
 	return axios.get(`/discover/movie?page=${page}&${params}`);
+}
+
+export function getFavoriteMovies(account_id) {
+	return axios.get(`/account/${account_id}/favorite/movies`)
 }
 
 export function addToFavorites(movie_id) {
@@ -82,4 +82,26 @@ export function removeFromFavorites(movie_id) {
 		favorite: false,
 	};
 	return axios.post(`/account/16758631/favorite`, body);
+}
+
+export function getWatchlistMovies(account_id) {
+	return axios.get(`/account/${account_id}/watchlist/movies`);
+}
+
+export function addToWatchList(movie_id) {
+	const body = {
+		media_type: "movie",
+		media_id: movie_id,
+		watchlist: true,
+	};
+	return axios.post(`/account/16758631/watchlist`, body);
+}
+
+export function removeFromWatchList(movie_id) {
+	const body = {
+		media_type: "movie",
+		media_id: movie_id,
+		watchlist: false,
+	};
+	return axios.post(`/account/16758631/watchlist`, body);
 }
