@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import SearchForm from "../SearchForm/SearchForm";
+import SearchBox from "../SearchBox/SearchBox";
 
 export default function Header() {
 	return (
@@ -16,7 +16,7 @@ export default function Header() {
 				</NavLink>
 			</nav>
 
-			<SearchForm />
+			<SearchBox />
 		</header>
 	);
 }
