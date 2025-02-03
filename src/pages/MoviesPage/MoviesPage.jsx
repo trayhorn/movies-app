@@ -19,6 +19,7 @@ export default function MoviesPage() {
 	const release_date_to = searchParams.get("release_date_to");
 	const sort_by = searchParams.get('sort_by');
 
+
 	const handleFormSubmit = (formValues) => {
 		setPage(1);
 		setSearchParams(formValues);
@@ -40,6 +41,7 @@ export default function MoviesPage() {
 
 	useEffect(() => {
 		async function getFilteredMovies() {
+			if (!genres && !vote_average && !release_date_from && !release_date_to && !sort_by) return;
 			try {
 				const { data } = await discoverMovie(
 					page,
@@ -69,7 +71,7 @@ export default function MoviesPage() {
 				<SearchForm onSubmit={handleFormSubmit} genres={genresList} />
 			)}
 
-			{filteredMovies && (
+			{filteredMovies.length > 0 && (
 				<MoviesSearchList
 					moviesToRender={filteredMovies}
 					fetchMore={() => setPage((prev) => prev + 1)}

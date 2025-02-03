@@ -1,0 +1,37 @@
+.searchedItem {
+  display: flex;
+  text-decoration: none;
+}
+.searchedItem:hover,
+.searchedItem:active,
+.searchedItem:focus {
+  outline: 1px solid var(--secondary-accent-color);
+}
+
+.posterContainer {
+  position: relative;
+}
+
+.poster {
+  display: block;
+  height: auto;
+}
+
+.movieTitle {
+  color: var(--primary-text-color);
+}
+
+.infoContainer {
+  padding: var(--spacing-lg);
+}
+.infoContainer p:not(:first-child) {
+  margin-top: var(--spacing-md);
+}
+
+.overview {
+  text-indent: 15px;
+}
+
+.rating {
+  float: right;
+}
