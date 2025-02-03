@@ -29,3 +29,11 @@ header {
   justify-content: center;
   align-items: center;
 }
+
+.infinite-scroll-component {
+  @media screen and (min-width: 1024px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--spacing-lg);
+  }
+}

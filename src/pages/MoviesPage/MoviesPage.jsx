@@ -76,6 +76,7 @@ export default function MoviesPage() {
 					moviesToRender={filteredMovies}
 					fetchMore={() => setPage((prev) => prev + 1)}
 					hasMore={hasMoreRef.current}
+					genresList={genresList}
 				/>
 			)}
 		</>

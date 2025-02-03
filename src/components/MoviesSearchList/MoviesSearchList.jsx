@@ -4,7 +4,7 @@ import style from "./MoviesSearchList.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchListItem from "../SearchListItem/SearchListItem";
 
-export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore }) {
+export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore, genresList }) {
 	const location = useLocation();
 
 	return (
@@ -16,13 +16,19 @@ export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore })
 				loader={<h4>Loading...</h4>}
 				scrollThreshold="100px"
 				endMessage={
-					<p style={{ textAlign: 'center' }}>
+					<p style={{ textAlign: "center" }}>
 						<b>Yay! You have seen it all</b>
-					</p>}
+					</p>
+				}
 			>
 				{moviesToRender.map((movie) => {
 					return (
-						<SearchListItem key={movie.id} movie={movie} location={location} />
+						<SearchListItem
+							key={movie.id}
+							movie={movie}
+							location={location}
+							genresList={genresList}
+						/>
 					);
 				})}
 			</InfiniteScroll>
@@ -33,5 +39,6 @@ export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore })
 MoviesSearchList.propTypes = {
 	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
 	fetchMore: PropTypes.func,
-	hasMore: PropTypes.bool
+	hasMore: PropTypes.bool,
+	genresList: PropTypes.arrayOf(PropTypes.shape)
 };

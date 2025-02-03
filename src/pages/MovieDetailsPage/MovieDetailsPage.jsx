@@ -3,7 +3,6 @@ import {
 	NavLink,
 	Outlet,
 	useLocation,
-	useNavigate,
 	useParams,
 } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
@@ -19,8 +18,6 @@ export default function MovieDetailsPage() {
 	const location = useLocation();
 
 	const backLinkRef = useRef(location.state?.from ?? "/movies");
-
-	const navigate = useNavigate();
 
 	useEffect(() => {
 		setLoading(true);
@@ -46,6 +43,7 @@ export default function MovieDetailsPage() {
 			)}
 			{location.pathname.includes("cast") ? (
 				<NavLink
+					className={style.link}
 					to={"/".concat(
 						location.pathname.slice(1, location.pathname.indexOf("cast") - 1)
 					)}
@@ -59,6 +57,7 @@ export default function MovieDetailsPage() {
 			)}
 			{location.pathname.includes("reviews") ? (
 				<NavLink
+					className={style.link}
 					to={"/".concat(
 						location.pathname.slice(1, location.pathname.indexOf("reviews") - 1)
 					)}

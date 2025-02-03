@@ -2,8 +2,12 @@ import style from "./SearchListItem.module.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export default function SearchListItem({movie, location}) {
-  return (
+export default function SearchListItem({ movie, location, genresList }) {
+	const genres = genresList
+		.filter((el) => movie.genre_ids.includes(el.id))
+		.map(el => <span key={el.id}>{el.name + ', '}</span>)
+
+	return (
 		<li key={movie.id}>
 			<Link
 				to={`/movies/${movie.id}`}
@@ -20,6 +24,7 @@ export default function SearchListItem({movie, location}) {
 				<div className={style.infoContainer}>
 					<p className={style.movieTitle}>{movie.title}</p>
 					<p className={style.overview}>{movie.overview}</p>
+					<p>Genres: {genres}</p>
 					<p>Release date: {movie.release_date}</p>
 					<p className={style.rating}>Rating {movie.vote_average.toFixed(2)}</p>
 					<p>Votes {movie.vote_count}</p>
@@ -38,6 +43,8 @@ SearchListItem.propTypes = {
 		overview: PropTypes.string,
 		vote_count: PropTypes.number,
 		vote_average: PropTypes.number,
-  }),
-  location: PropTypes.object
+		genre_ids: PropTypes.array
+	}),
+	location: PropTypes.object,
+	genresList: PropTypes.arrayOf(PropTypes.shape),
 };
