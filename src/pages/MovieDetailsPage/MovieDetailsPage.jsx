@@ -3,6 +3,7 @@ import {
 	NavLink,
 	Outlet,
 	useLocation,
+	useNavigate,
 	useParams,
 } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
@@ -18,6 +19,8 @@ export default function MovieDetailsPage() {
 	const location = useLocation();
 
 	const backLinkRef = useRef(location.state?.from ?? "/movies");
+
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		setLoading(true);
@@ -41,12 +44,38 @@ export default function MovieDetailsPage() {
 			) : (
 				<div>Error</div>
 			)}
-			<NavLink className={style.link} to="cast">
+			{location.pathname.includes("cast") ? (
+				<NavLink
+					to={"/".concat(
+						location.pathname.slice(1, location.pathname.indexOf("cast") - 1)
+					)}
+				>
+					Cast
+				</NavLink>
+			) : (
+				<NavLink className={style.link} to="cast">
+					Cast
+				</NavLink>
+			)}
+			{location.pathname.includes("reviews") ? (
+				<NavLink
+					to={"/".concat(
+						location.pathname.slice(1, location.pathname.indexOf("reviews") - 1)
+					)}
+				>
+					Reviews
+				</NavLink>
+			) : (
+				<NavLink className={style.link} to="reviews">
+					Reviews
+				</NavLink>
+			)}
+			{/* <NavLink className={style.link} to="cast">
 				Cast
 			</NavLink>
 			<NavLink className={style.link} to="reviews">
 				Reviews
-			</NavLink>
+			</NavLink> */}
 			<Outlet />
 		</>
 	);
