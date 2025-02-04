@@ -9,8 +9,6 @@ export default function SearchListItem({ movie, location, genresList }) {
 		.map(el => el.name)
 		.join(', ');
 
-
-
 	return (
 		<li key={movie.id}>
 			<Link
@@ -29,7 +27,9 @@ export default function SearchListItem({ movie, location, genresList }) {
 					<p className={style.movieTitle}>{movie.title}</p>
 					<p className={style.overview}>{movie.overview}</p>
 					<p>Genres: {genres}</p>
-					<p>Release date: {movie.release_date}</p>
+					<p>
+						Release date: {movie.release_date.split("-").reverse().join("-")}
+					</p>
 					<p className={style.rating}>Rating {movie.vote_average.toFixed(2)}</p>
 					<p>Votes {movie.vote_count}</p>
 				</div>
