@@ -1,14 +1,7 @@
 import style from './MovieDetails.module.css';
 import PropTypes from 'prop-types';
-import { addToFavorites, addToWatchList, getFavoriteMovies, getWatchlistMovies, removeFromFavorites, removeFromWatchList } from "../../api";
-import { useEffect, useState } from 'react';
-import {
-	addedToFavoritesToast,
-	removedFromFavoritesToast,
-	removedFromWishListToast,
-	addedToWishListToast,
-	errorToast,
-} from "../../toasts";
+import useWatchList from '../../hooks/useWatchList';
+import useFavorites from '../../hooks/useFavorites';
 
 export default function MovieDetails({ detailsToRender }) {
 	const {
@@ -22,81 +15,13 @@ export default function MovieDetails({ detailsToRender }) {
 		videos,
 	} = detailsToRender;
 
-	const [isInFavorites, setIsInFavorites] = useState(false);
-	const [inWatchList, setInWatchList] = useState(false);
+	const { isInFavorites, handleFavorite } = useFavorites(id);
+	const { inWatchList, handleWatchList } = useWatchList(id);
 
   const trailer =
 		videos.results.find((el) => el.name === "Official Trailer") ||
 		videos.results.filter((el) => el.type === "Trailer")[0] ||
 		videos.results[0];
-
-	const handleFavorite = async (movieId) => {
-		if (isInFavorites) {
-			try {
-				await removeFromFavorites(movieId);
-				removedFromFavoritesToast();
-			} catch (e) {
-				console.log(e);
-				errorToast();
-			}
-		} else {
-			try {
-				await addToFavorites(movieId);
-				addedToFavoritesToast();
-			} catch (e) {
-				console.log(e);
-				errorToast();
-			}
-		}
-		setIsInFavorites((prevState) => !prevState);
-	}
-
-	const handleWatchList = async (movieId) => {
-		if (inWatchList) {
-			try {
-				await removeFromWatchList(movieId);
-				removedFromWishListToast();
-			} catch (e) {
-				console.log(e);
-				errorToast();
-			}
-		} else {
-			try {
-				await addToWatchList(movieId);
-				addedToWishListToast();
-			} catch (e) {
-				console.log(e);
-				errorToast();
-			}
-		}
-		setInWatchList((prevState) => !prevState);
-	};
-
-	useEffect(() => {
-		async function checkFavorites() {
-			try {
-				const { data } = await getFavoriteMovies();
-				if (data.results.find((el) => el.id === id)) {
-					setInWatchList(true);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		async function checkWishList() {
-			try {
-				const { data } = await getWatchlistMovies();
-				if (data.results.find((el) => el.id === id)) {
-					setInWatchList(true);
-				}
-			} catch (error) {
-				console.log(error);
-			}
-		}
-
-		checkFavorites();
-		checkWishList();
-	}, [id]);
 
 	return (
 		<div className={style.detailsContainer}>

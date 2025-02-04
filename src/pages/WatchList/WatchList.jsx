@@ -9,7 +9,7 @@ export default function WatchList() {
   const [error, setError] = useState(false);
   
   useEffect(() => {
-      async function fetchFavorites() {
+      async function fetchWatchList() {
         try {
           setLoading(true);
           const { data } = await getWatchlistMovies();
@@ -22,7 +22,7 @@ export default function WatchList() {
         }
       }
   
-      fetchFavorites();
+      fetchWatchList();
     }, []);
   
   return (
