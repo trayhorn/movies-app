@@ -3,9 +3,13 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 export default function SearchListItem({ movie, location, genresList }) {
+
 	const genres = genresList
 		.filter((el) => movie.genre_ids.includes(el.id))
-		.map(el => <span key={el.id}>{el.name + ', '}</span>)
+		.map(el => el.name)
+		.join(', ');
+
+
 
 	return (
 		<li key={movie.id}>

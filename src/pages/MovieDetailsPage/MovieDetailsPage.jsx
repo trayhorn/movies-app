@@ -19,6 +19,12 @@ export default function MovieDetailsPage() {
 
 	const backLinkRef = useRef(location.state?.from ?? "/movies");
 
+	const calculatePath = keyword => {
+		return "/".concat(
+			location.pathname.slice(1, location.pathname.indexOf(keyword) - 1)
+		);
+	}
+
 	useEffect(() => {
 		setLoading(true);
 		getMovieDetails(movieId)
@@ -41,13 +47,11 @@ export default function MovieDetailsPage() {
 			) : (
 				<div>Error</div>
 			)}
+
 			{location.pathname.includes("cast") ? (
 				<NavLink
 					className={style.link}
-					to={"/".concat(
-						location.pathname.slice(1, location.pathname.indexOf("cast") - 1)
-					)}
-				>
+					to={calculatePath('cast')}>
 					Cast
 				</NavLink>
 			) : (
@@ -55,12 +59,11 @@ export default function MovieDetailsPage() {
 					Cast
 				</NavLink>
 			)}
+
 			{location.pathname.includes("reviews") ? (
 				<NavLink
 					className={style.link}
-					to={"/".concat(
-						location.pathname.slice(1, location.pathname.indexOf("reviews") - 1)
-					)}
+					to={calculatePath('reviews')}
 				>
 					Reviews
 				</NavLink>
@@ -69,12 +72,6 @@ export default function MovieDetailsPage() {
 					Reviews
 				</NavLink>
 			)}
-			{/* <NavLink className={style.link} to="cast">
-				Cast
-			</NavLink>
-			<NavLink className={style.link} to="reviews">
-				Reviews
-			</NavLink> */}
 			<Outlet />
 		</>
 	);
