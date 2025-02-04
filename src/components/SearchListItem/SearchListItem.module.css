@@ -33,5 +33,12 @@
 }
 
 .rating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
   float: right;
+}
+.rating p {
+  margin-top: 0 !important;
 }

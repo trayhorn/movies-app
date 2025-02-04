@@ -1,6 +1,7 @@
 import style from "./SearchListItem.module.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import RatingStars from "../utils/EmptyStars";
 
 export default function SearchListItem({ movie, location, genresList }) {
 
@@ -30,7 +31,10 @@ export default function SearchListItem({ movie, location, genresList }) {
 					<p>
 						Release date: {movie.release_date.split("-").reverse().join("-")}
 					</p>
-					<p className={style.rating}>Rating {movie.vote_average.toFixed(2)}</p>
+					<div className={style.rating}>
+						<span>{movie.vote_average.toFixed(2)}</span>
+						<RatingStars rating={movie.vote_average} />
+					</div>
 					<p>Votes {movie.vote_count}</p>
 				</div>
 			</Link>

@@ -37,3 +37,16 @@ header {
     column-gap: var(--spacing-lg);
   }
 }
+
+
+
+.stars-container {
+  position: relative;
+  width: fit-content;
+  overflow: hidden;
+}
+
+.full-stars-container {
+  position: absolute;
+  top: 0;
+}

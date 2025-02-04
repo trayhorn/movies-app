@@ -26,7 +26,7 @@ export default function WatchList() {
     }, []);
   
   return (
-		<>
+    <>
 			{loading && <Loader />}
       {watchListMovies && (
         <MoviesList moviesToRender={watchListMovies} />
