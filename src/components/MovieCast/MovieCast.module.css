@@ -1,6 +1,6 @@
 .castGallery {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
   justify-content: space-between;
   gap: 15px;
   list-style: none;

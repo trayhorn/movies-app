@@ -15,23 +15,25 @@ export default function MovieCast() {
 
   return (
 		<ul className={style.castGallery}>
-      {cast.filter(el => el.profile_path !== null).map(({ id, name, profile_path }) => {
-        return (
-					<li className={style.actorCard} key={id}>
-						<Link to={`/actors/${id}`}>
-							<div>
-								<img
-									className={style.actorPoster}
-									src={`https://image.tmdb.org/t/p/w200${profile_path}`}
-									alt=""
-								/>
-							</div>
-							<p className={style.actorName}>{name}</p>
-						</Link>
-					</li>
-				);
-      })}
-    </ul>
-    
+			{cast
+				.filter((el) => el.profile_path !== null)
+				.map(({ id, name, profile_path, character }) => {
+					return (
+						<li className={style.actorCard} key={id}>
+							<Link to={`/actors/${id}`}>
+								<div>
+									<img
+										className={style.actorPoster}
+										src={`https://image.tmdb.org/t/p/w200${profile_path}`}
+										alt=""
+									/>
+								</div>
+								<p className={style.actorName}>{name}</p>
+								<p className={style.actorName}>{character}</p>
+							</Link>
+						</li>
+					);
+				})}
+		</ul>
 	);
 }

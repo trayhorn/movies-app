@@ -14,7 +14,7 @@ export default function FavoritesPage() {
 			try {
 				setLoading(true);
 				const { data } = await getFavoriteMovies();
-				setFavorites(data.results);
+				setFavorites(data.results.reverse());
 			} catch (error) {
 				console.log(error.message);
 				setError(true);

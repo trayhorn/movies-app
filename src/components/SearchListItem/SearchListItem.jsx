@@ -1,7 +1,7 @@
 import style from "./SearchListItem.module.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import RatingStars from "../utils/EmptyStars";
+import RatingStars from "../utils/RatingStars";
 
 export default function SearchListItem({ movie, location, genresList }) {
 
