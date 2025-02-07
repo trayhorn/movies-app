@@ -7,6 +7,7 @@ import ActorPage from './pages/ActorPage/ActorPage';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import SearchPage from './pages/SearchPage/SearchPage';
 import WatchList from './pages/WatchList/WatchList';
+import { ListDetails } from './components/Lists/ListDetails';
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
@@ -31,7 +32,9 @@ function App() {
 					<Route path="reviews" element={<MovieReviews />} />
 				</Route>
 				<Route path="/actors/:actorId" element={<ActorPage />} />
-				<Route path="/favorites" element={<FavoritesPage />} />
+				<Route path="/favorites" element={<FavoritesPage />}>
+					<Route path="lists/:listId" element={<ListDetails />} />
+				</Route>
 				<Route path="/watchlist" element={<WatchList />} />
 				<Route path="*" element={<NotFound />} />
 			</Route>

@@ -105,3 +105,34 @@ export function removeFromWatchList(movie_id) {
 	};
 	return axios.post(`/account/16758631/watchlist`, body);
 }
+
+// LISTS
+
+export function getAccountLists() {
+	return axios.get(
+		"/account/{account_id}/lists?session_id=097b4027d9a0d1aea55e20084d7c5af44e44a96f"
+	);
+}
+
+export function createList(name) {
+	const body = {
+		name,
+		language: "en",
+		description: "",
+	};
+
+	return axios.post(
+		`/list?session_id=097b4027d9a0d1aea55e20084d7c5af44e44a96f`,
+		body
+	);
+}
+
+export function deleteList(list_id) {
+	return axios.delete(
+		`/list/${list_id}?session_id=097b4027d9a0d1aea55e20084d7c5af44e44a96f`
+	);
+}
+
+export function getListDetails(list_id) {
+	return axios.get(`/list/${list_id}`);
+}
