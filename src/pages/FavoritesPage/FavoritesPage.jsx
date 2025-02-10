@@ -6,7 +6,7 @@ import {
 	deleteList,
 } from "../../api";
 import Loader from "../../components/utils/Loader";
-import MoviesList from "../../components/MoviesList/MoviesList";
+import FavoriteMoviesList from "../../components/MoviesList/FavoriteMoviesList";
 import { useParams, Outlet, Link } from "react-router-dom";
 
 export default function FavoritesPage() {
@@ -17,7 +17,6 @@ export default function FavoritesPage() {
 	const [lists, setLists] = useState([]);
 
 	const { listId } = useParams();
-	console.log(listId);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -92,7 +91,11 @@ export default function FavoritesPage() {
 				</form>
 			</section>
 			{loading && <Loader />}
-			{!listId && favorites ? <MoviesList moviesToRender={favorites} /> : <Outlet />}
+			{!listId && favorites ? (
+				<FavoriteMoviesList moviesToRender={favorites} lists={lists} />
+			) : (
+				<Outlet />
+			)}
 			{error && <div>Something went wrong</div>}
 		</>
 	);

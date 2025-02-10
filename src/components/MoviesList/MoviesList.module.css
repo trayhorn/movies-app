@@ -14,6 +14,7 @@
 }
 
 .galleryItem {
+  position: relative;
   border: 1px solid transparent;
   background-color: var(--secondary-bg-color);
 }
@@ -41,27 +42,28 @@
   height: auto;
 }
 
-.favoritesButton {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-}
-
-.favoritesIcon {
-  display: block;
-  color: var(--primary-accent-color);
-  opacity: 0;
-  cursor: pointer;
-}
-.favoritesButton:hover .favoritesIcon{
-  opacity: 1;
-}
-
 .movieTitle {
   color: var(--primary-text-color);
   text-align: center;
   padding: var(--spacing-md) var(--spacing-sm);
+}
+
+.addToListWrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.addToList {
+  display: block;
+  background: white;
+  border: 2px solid black;
+  cursor: pointer;
+  text-align: end;
+  margin-left: auto;
+}
+
+.dropdown {
+  list-style: none;
+  padding: var(--spacing-sm);
+  background-color: rgb(50, 47, 47);
 }
