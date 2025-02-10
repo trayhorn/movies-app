@@ -11,14 +11,33 @@
     margin-left: auto;
   }
 
-  .add-button {
-    display: block;
+  .add-icon_container {
+    width: min-content;
+    padding: 4px;
     margin: 0 0 0 auto;
+    background-color: rgba($color: #1E1E1E, $alpha: 0.5);
+    cursor: pointer;
+  }
+
+  .add-icon {
+    display: block;
+    color: #FFFF;
+  }
+
+  .add-icon_container:hover .add-icon {
+    color: var(--secondary-accent-color);
   }
 
   .dropdown {
     list-style: none;
-    padding: var(--spacing-sm);
     background-color: rgb(50, 47, 47);
+  }
+
+  .dropdown-item {
+    padding: 6px;
+
+    &:hover {
+      color: var(--secondary-accent-color);
+    }
   }
 }
