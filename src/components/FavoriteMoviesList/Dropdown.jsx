@@ -7,39 +7,37 @@ export default function Dropdown({movie, lists}) {
   const [openId, setOpenId] = useState(false);
 	const ref = useRef(null);
 
-	const handleClick = (e) => {
-		if (ref.current.contains(e.target)) {
-			return;
-		}
-		setOpenId(false);
-  };
 
-  
   useEffect(() => {
+    const handleClick = (e) => {
+			if (ref.current.contains(e.target)) {
+				return;
+			}
+			setOpenId(false);
+    };
+
 		window.addEventListener("click", handleClick);
 		return () => window.removeEventListener("click", handleClick);
 	}, [lists]);
 
   return (
-		<div className="addToListWrapper" ref={ref}>
-			{/* <button
-				className="add-button"
-				onClick={() => setOpenId(movie.id === openId ? null : movie.id)}
-			> */}
-			<div className="add-icon_container">
+		<div className="addToListWrapper">
+			<div className="add-icon_container" ref={ref}>
 				<BsThreeDotsVertical
 					className="add-icon"
 					size="1.5rem"
-					// color="#FFFF"
 					onClick={() => setOpenId(movie.id === openId ? null : movie.id)}
 				/>
 			</div>
-			{/* </button> */}
 			<div className="addToList">
 				{openId === movie.id && (
 					<ul className="dropdown">
 						{lists.map((el) => {
-							return <li className="dropdown-item" key={el.id}>{el.name}</li>;
+							return (
+								<li className="dropdown-item" key={el.id}>
+									{el.name}
+								</li>
+							);
 						})}
 					</ul>
 				)}
