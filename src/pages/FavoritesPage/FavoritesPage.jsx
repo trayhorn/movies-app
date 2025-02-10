@@ -6,7 +6,7 @@ import {
 	deleteList,
 } from "../../api";
 import Loader from "../../components/utils/Loader";
-import FavoriteMoviesList from "../../components/MoviesList/FavoriteMoviesList";
+import FavoriteMoviesList from "../../components/FavoriteMoviesList/FavoriteMoviesList";
 import { useParams, Outlet, Link } from "react-router-dom";
 
 export default function FavoritesPage() {

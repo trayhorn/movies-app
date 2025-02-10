@@ -36,30 +36,6 @@
     text-align: center;
     padding: var(--spacing-md) var(--spacing-sm);
   }
-
-  .addToListWrapper {
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  .addToList {
-    display: block;
-    background: white;
-    cursor: pointer;
-    text-align: end;
-    margin-left: auto;
-  }
-
-  .add-button {
-    display: block;
-    margin: 0 0 0 auto;
-  }
-
-  .dropdown {
-    list-style: none;
-    padding: var(--spacing-sm);
-    background-color: rgb(50, 47, 47);
-  }
 }
 
 @media (min-width: 1200px) {

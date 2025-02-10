@@ -1,25 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./FavoriteMoviesList.scss";
-import { useEffect, useState, useRef } from "react";
+import Dropdown from "./Dropdown";
 
 export default function FavoriteMoviesList({ moviesToRender, lists }) {
 	const location = useLocation();
-
-	const [openId, setOpenId] = useState(false);
-
-	const handleClick = (e) => {
-		if (e.target.classList.contains('add-button') || e.target.classList.contains('.dropdown') || e.target.classList.contains('.dropdown li')) {
-			return;
-		} else {
-			setOpenId(null);
-		}
-	};
-
-	useEffect(() => {
-		window.addEventListener("click", handleClick);
-		return () => window.removeEventListener("click", handleClick);
-	}, []);
 
 	return (
 		<ul className="favoritesList">
@@ -40,16 +25,7 @@ export default function FavoriteMoviesList({ moviesToRender, lists }) {
 							</div>
 							<p className="movie_title">{movie.title}</p>
 						</Link>
-						<div className="addToListWrapper">
-							<button className="add-button" onClick={() => setOpenId(movie.id === openId ? null : movie.id)}>Add</button>
-							<div className="addToList">
-								{openId === movie.id && (
-									<ul className="dropdown">{lists.map(el => {
-										return <li key={el.id}>{el.name}</li>
-									})}</ul>
-								)}
-							</div>
-						</div>
+						<Dropdown movie={movie} lists={lists} />
 					</li>
 				);
 			})}
@@ -59,4 +35,5 @@ export default function FavoriteMoviesList({ moviesToRender, lists }) {
 
 FavoriteMoviesList.propTypes = {
 	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
+	lists: PropTypes.array
 };
