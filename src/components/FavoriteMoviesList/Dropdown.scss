@@ -2,13 +2,19 @@
   position: absolute;
   top: 0;
   right: 0;
+  overflow: hidden;
 
   .addToList {
-    display: block;
-    background: white;
+    display: none;
+    position: relative;
     cursor: pointer;
     text-align: end;
-    margin-left: auto;
+    animation: vanish 200ms;
+
+    &.open {
+      display: block;
+      animation: appear 200ms;
+    }
   }
 
   .add-icon_container {
@@ -39,5 +45,30 @@
     &:hover {
       color: var(--secondary-accent-color);
     }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+
+  }
+}
+
+@keyframes vanish {
+  from {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
   }
 }

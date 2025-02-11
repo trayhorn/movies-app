@@ -29,18 +29,16 @@ export default function Dropdown({movie, lists}) {
 					onClick={() => setOpenId(movie.id === openId ? null : movie.id)}
 				/>
 			</div>
-			<div className="addToList">
-				{openId === movie.id && (
-					<ul className="dropdown">
-						{lists.map((el) => {
-							return (
-								<li className="dropdown-item" key={el.id}>
-									{el.name}
-								</li>
-							);
-						})}
-					</ul>
-				)}
+			<div className={"addToList" + (openId ? ' open' : '')}>
+				<ul className="dropdown">
+					{lists.map((el) => {
+						return (
+							<li className="dropdown-item" key={el.id}>
+								{el.name}
+							</li>
+						);
+					})}
+				</ul>
 			</div>
 		</div>
 	);
