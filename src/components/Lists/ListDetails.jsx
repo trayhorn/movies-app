@@ -16,7 +16,6 @@ export function ListDetails() {
     async function fetchListDetails(listId) {
 			try {
         const { data } = await getListDetails(listId);
-        console.log(data);
 				setDetails(data);
 			} catch (e) {
 				console.log(e);

@@ -25,7 +25,7 @@ export default function FavoriteMoviesList({ moviesToRender, lists }) {
 							</div>
 							<p className="movie_title">{movie.title}</p>
 						</Link>
-						<Dropdown movie={movie} lists={lists} />
+						{lists.length > 0 && <Dropdown movie={movie} lists={lists} />}
 					</li>
 				);
 			})}

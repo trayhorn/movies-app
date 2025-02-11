@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import "./Dropdown.scss";
 import PropTypes from "prop-types";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { addMovieToList } from "../../api";
+import { addedToList } from "../utils/toasts";
 
 export default function Dropdown({movie, lists}) {
   const [openId, setOpenId] = useState(false);
@@ -33,7 +35,14 @@ export default function Dropdown({movie, lists}) {
 				<ul className="dropdown">
 					{lists.map((el) => {
 						return (
-							<li className="dropdown-item" key={el.id}>
+							<li
+								key={el.id}
+								className="dropdown-item"
+								onClick={() => {
+									addMovieToList(el.id, movie.id);
+									addedToList(el.name);
+								}}
+							>
 								{el.name}
 							</li>
 						);

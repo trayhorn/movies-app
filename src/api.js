@@ -136,3 +136,8 @@ export function deleteList(list_id) {
 export function getListDetails(list_id) {
 	return axios.get(`/list/${list_id}`);
 }
+
+export function addMovieToList(list_id, media_id) {
+	const body = { media_id };
+	return axios.post(`/list/${list_id}/add_item`, body);
+}

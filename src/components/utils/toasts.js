@@ -1,21 +1,27 @@
 import { toast } from "react-toastify";
 
-export function errorToast() {
+function errorToast() {
   return toast.error("Something went wrong");
 }
 
-export function addedToFavoritesToast() {
+function addedToFavoritesToast() {
   return toast.success('Added to favorites');
 }
 
-export function removedFromFavoritesToast() {
+function removedFromFavoritesToast() {
   return toast.success('Removed from favorites');
 }
 
-export function addedToWishListToast() {
+function addedToWishListToast() {
 	return toast.success("Added to watchlist");
 }
 
-export function removedFromWishListToast() {
+function removedFromWishListToast() {
 	return toast.success("Removed from watchlist");
 }
+
+function addedToList(list_name) {
+  return toast.success(`Added to ${list_name}`);
+}
+
+export { errorToast, addedToFavoritesToast, removedFromFavoritesToast, addedToWishListToast, removedFromWishListToast, addedToList };
