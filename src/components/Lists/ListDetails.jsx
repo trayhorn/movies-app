@@ -1,12 +1,26 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import { getListDetails } from "../../api";
-import MoviesList from "../MoviesList/MoviesList";
+import ListGallery from "./ListGallery";
+import { removeMovieFromList } from "../../api";
+import { errorToast } from "../utils/toasts";
+
 
 export function ListDetails() {
   const [details, setDetails] = useState([]);
 
-  const { listId } = useParams();
+	const { listId } = useParams();
+
+	const handleRemoveFromList = async (listId, movieId) => {
+		try {
+			await removeMovieFromList(listId, movieId);
+			const { data } = await getListDetails(listId);
+			setDetails(data);
+		} catch (e) {
+			console.log(e);
+			errorToast();
+		}
+	};
 
   useEffect(() => {
     if (!listId) {
@@ -28,7 +42,10 @@ export function ListDetails() {
   return (
 		<>
 			{details?.item_count > 0 ? (
-				<MoviesList moviesToRender={details.items} />
+				<ListGallery
+					moviesToRender={details.items}
+					handleClick={handleRemoveFromList}
+				/>
 			) : (
 				<p>No movies in this list</p>
 			)}

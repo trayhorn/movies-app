@@ -141,3 +141,8 @@ export function addMovieToList(list_id, media_id) {
 	const body = { media_id };
 	return axios.post(`/list/${list_id}/add_item`, body);
 }
+
+export function removeMovieFromList(list_id, media_id) {
+	const body = { media_id };
+	return axios.post(`/list/${list_id}/remove_item`, body);
+}

@@ -1,3 +1,5 @@
+// This component is almost identical to MoviesList
+
 import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./FavoriteMoviesList.scss";
@@ -35,5 +37,5 @@ export default function FavoriteMoviesList({ moviesToRender, lists }) {
 
 FavoriteMoviesList.propTypes = {
 	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
-	lists: PropTypes.array
+	lists: PropTypes.array,
 };

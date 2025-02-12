@@ -1,0 +1,23 @@
+.delete-icon_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: black;
+  padding: 4px;
+  background-color: rgba($color: #1E1E1E, $alpha: 0.5);
+  cursor: pointer;
+  opacity: 0;
+
+  .icon {
+    display: block;
+    color: #FFFF;
+
+    &:hover {
+      color: var(--secondary-accent-color);
+    }
+  }
+}
+
+[class*="_galleryItem_"]:hover .delete-icon_container {
+  opacity: 1;
+}
