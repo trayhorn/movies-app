@@ -1,0 +1,25 @@
+.favorites-nav {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+
+  .form,
+  .list {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .button {
+    padding: 4px;
+    background-color: transparent;
+    border: 2px solid var(--secondary-accent-color);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .icon {
+    display: block;
+    color: #FFFF;
+  }
+}

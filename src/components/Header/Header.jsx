@@ -4,7 +4,7 @@ import SearchBox from "../SearchBox/SearchBox";
 export default function Header() {
 	return (
 		<header>
-			<nav>
+			<nav aria-label="main-nav">
 				<NavLink className="navLink" to="/">
 					Home
 				</NavLink>

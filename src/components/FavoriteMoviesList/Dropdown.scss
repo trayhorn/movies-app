@@ -3,6 +3,9 @@
   top: 0;
   right: 0;
   overflow: hidden;
+  // opacity: 0;
+  // pointer-events: none;
+  // transition: opacity 100ms ease-in-out;
 
   .addToList {
     display: none;

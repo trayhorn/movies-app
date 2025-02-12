@@ -7,7 +7,8 @@ import {
 } from "../../api";
 import Loader from "../../components/utils/Loader";
 import FavoriteMoviesList from "../../components/FavoriteMoviesList/FavoriteMoviesList";
-import { useParams, Outlet, Link } from "react-router-dom";
+import { useParams, Outlet } from "react-router-dom";
+import FavoritesNav from "../../components/FavoritesNav/FavoritesNav";
 
 export default function FavoritesPage() {
 	const [favorites, setFavorites] = useState([]);
@@ -31,7 +32,7 @@ export default function FavoritesPage() {
 		e.target.reset();
 	}
 
-	const handleClick = async (listId) => {
+	const handleDeleteClick = async (listId) => {
 		try {
 			await deleteList(listId);
 			const { data } = await getAccountLists();
@@ -74,22 +75,7 @@ export default function FavoritesPage() {
 
 	return (
 		<>
-			<section>
-				<ul>
-					{lists.map((el) => {
-						return (
-							<div key={el.id}>
-								<Link to={`lists/${el.id}`}>{el.name}</Link>
-								<button onClick={() => handleClick(el.id)}>delete</button>
-							</div>
-						);
-					})}
-				</ul>
-				<form onSubmit={handleSubmit}>
-					<input type="text" name="name" />
-					<button type="submit">Create list</button>
-				</form>
-			</section>
+			<FavoritesNav onDeleteClick={handleDeleteClick} onSubmit={handleSubmit} lists={lists} />
 			{loading && <Loader />}
 			{!listId && favorites ? (
 				<FavoriteMoviesList moviesToRender={favorites} lists={lists} />
