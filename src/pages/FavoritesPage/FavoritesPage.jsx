@@ -22,13 +22,15 @@ export default function FavoritesPage() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		const { value } = e.target.elements.name;
+
 		try {
 			await createList(value);
 			const { data } = await getAccountLists();
 			setLists(data.results);
 		} catch (e) {
-			console.log(e)
+			console.log(e);
 		}
+
 		e.target.reset();
 	}
 
@@ -75,7 +77,11 @@ export default function FavoritesPage() {
 
 	return (
 		<>
-			<FavoritesNav onDeleteClick={handleDeleteClick} onSubmit={handleSubmit} lists={lists} />
+			<FavoritesNav
+				onDeleteClick={handleDeleteClick}
+				onSubmit={handleSubmit}
+				lists={lists}
+			/>
 			{loading && <Loader />}
 			{!listId && favorites ? (
 				<FavoriteMoviesList moviesToRender={favorites} lists={lists} />

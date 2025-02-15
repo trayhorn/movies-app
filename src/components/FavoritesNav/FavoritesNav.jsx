@@ -1,9 +1,17 @@
 import PropTypes from "prop-types";
 import "./FavoritesNav.scss";
 import { Link } from "react-router-dom";
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaCheck } from "react-icons/fa";
+import { useState } from "react";
 
 export default function FavoritesNav({ onDeleteClick, onSubmit, lists }) {
+	const [addList, setAddlist] = useState(false);
+
+	const handleSubmit = (e) => {
+		onSubmit(e);
+		setAddlist(false);
+	}
+
 	return (
 		<nav aria-label="favorites-nav" className="favorites-nav">
 			<ul className="list">
@@ -16,12 +24,31 @@ export default function FavoritesNav({ onDeleteClick, onSubmit, lists }) {
 					);
 				})}
 			</ul>
-			<form onSubmit={onSubmit} className="form">
-				<input placeholder="Collection name" type="text" name="name" />
+			<form onSubmit={handleSubmit} className="form">
+				<input
+					className={"input" + (addList ? " showing" : "")}
+					placeholder="Collection name"
+					type="text"
+					name="name"
+				/>
 
-				<button type="submit" className="button" title="Create Collection">
-					<FaPlus className="icon" size="1.5rem" />
-				</button>
+				{!addList ? (
+					<button
+						type="button"
+						className="button"
+						title="Create Collection"
+						onClick={(e) => {
+							e.preventDefault();
+							setAddlist(true);
+						}}
+					>
+						<FaPlus className="icon" size="1.5rem" />
+					</button>
+				) : (
+					<button type="submit" className="button">
+						<FaCheck className="icon" size="1.5rem" />
+					</button>
+				)}
 			</form>
 		</nav>
 	);
@@ -30,5 +57,5 @@ export default function FavoritesNav({ onDeleteClick, onSubmit, lists }) {
 FavoritesNav.propTypes = {
 	lists: PropTypes.array,
 	onDeleteClick: PropTypes.func,
-	onSubmit: PropTypes.func,
+	onSubmit: PropTypes.func
 };

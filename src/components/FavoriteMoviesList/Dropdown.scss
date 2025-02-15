@@ -11,7 +11,7 @@
     display: none;
     position: relative;
     cursor: pointer;
-    text-align: end;
+    text-align: start;
     animation: vanish 200ms;
 
     &.open {

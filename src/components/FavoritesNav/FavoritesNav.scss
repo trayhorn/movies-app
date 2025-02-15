@@ -1,13 +1,27 @@
 .favorites-nav {
   display: flex;
-  gap: 30px;
   justify-content: space-between;
+  align-items: center;
+  gap: 30px;
   margin-bottom: var(--spacing-md);
 
   .form,
   .list {
     display: flex;
     gap: var(--spacing-sm);
+  }
+
+  .input {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(10px);
+    transition: transform 150ms ease-in, opacity 150ms ease-in;
+
+    &.showing {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
   }
 
   .button {
