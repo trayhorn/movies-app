@@ -3,9 +3,22 @@ import PropTypes from "prop-types";
 import style from "./MoviesSearchList.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchListItem from "../SearchListItem/SearchListItem";
+import { useEffect } from "react";
 
 export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore, genresList }) {
 	const location = useLocation();
+
+	useEffect(() => {
+		if (!location.state) {
+			return;
+		}
+
+		const movieId = location.state.movieIdfrom;
+		document
+			.getElementById(movieId)
+			.scrollIntoView({ behavior: "smooth", block: "center" });
+	}, [location.state]);
+
 
 	return (
 		<ul className={style.gallery}>

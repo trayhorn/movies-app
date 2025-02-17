@@ -37,7 +37,11 @@ export default function MovieDetailsPage() {
 
 	return (
 		<>
-			<Link className={style.goBackButton} to={backLinkRef.current}>
+			<Link
+				className={style.goBackButton}
+				to={backLinkRef.current}
+				state={{ movieIdfrom: movieId }}
+			>
 				Go back
 			</Link>
 			{loading ? (
@@ -49,9 +53,7 @@ export default function MovieDetailsPage() {
 			)}
 
 			{location.pathname.includes("cast") ? (
-				<NavLink
-					className={style.link}
-					to={calculatePath('cast')}>
+				<NavLink className={style.link} to={calculatePath("cast")}>
 					Cast
 				</NavLink>
 			) : (
@@ -61,10 +63,7 @@ export default function MovieDetailsPage() {
 			)}
 
 			{location.pathname.includes("reviews") ? (
-				<NavLink
-					className={style.link}
-					to={calculatePath('reviews')}
-				>
+				<NavLink className={style.link} to={calculatePath("reviews")}>
 					Reviews
 				</NavLink>
 			) : (

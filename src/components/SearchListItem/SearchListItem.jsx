@@ -11,7 +11,7 @@ export default function SearchListItem({ movie, location, genresList }) {
 		.join(', ');
 
 	return (
-		<li key={movie.id}>
+		<li key={movie.id} id={movie.id}>
 			<Link
 				to={`/movies/${movie.id}`}
 				state={{ from: location }}
