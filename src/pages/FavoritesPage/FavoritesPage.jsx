@@ -21,14 +21,23 @@ export default function FavoritesPage() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { value } = e.target.elements.name;
+		const value = e.target.elements.name.value.trim();
 
-		try {
-			await createList(value);
-			const { data } = await getAccountLists();
-			setLists(data.results);
-		} catch (e) {
-			console.log(e);
+		if (value === '') {
+			alert('The field is empty');
+			return;
+		}
+
+		if (lists.find((el) => el.name === value)) {
+			alert('Collection already exists')
+		} else {
+			try {
+				await createList(value);
+				const { data } = await getAccountLists();
+				setLists(data.results);
+			} catch (e) {
+				console.log(e);
+			}
 		}
 
 		e.target.reset();

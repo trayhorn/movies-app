@@ -5,10 +5,29 @@
   gap: 30px;
   margin-bottom: var(--spacing-md);
 
+  .navlink {
+    display: inline-block;
+    text-decoration: none;
+    padding: var(--spacing-sm) var(--spacing-sm);
+    border: 1px solid transparent;
+    color: var(--primary-text-color);
+  }
+  .navlink.active {
+    color: var(--secondary-accent-color);
+    border-bottom-color: var(--secondary-accent-color);
+  }
+
   .form,
   .list {
     display: flex;
     gap: var(--spacing-sm);
+  }
+
+  .list-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
   }
 
   .input {
@@ -35,5 +54,14 @@
   .icon {
     display: block;
     color: #FFFF;
+    cursor: pointer;
+  }
+
+  .remove-icon {
+    color: var(--secondary-accent-color);
+
+    &:hover {
+      color: var(--primary-accent-color);
+    }
   }
 }

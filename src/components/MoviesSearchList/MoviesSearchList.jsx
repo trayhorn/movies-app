@@ -16,7 +16,7 @@ export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore, g
 		const movieId = location.state.movieIdfrom;
 		document
 			.getElementById(movieId)
-			.scrollIntoView({ behavior: "smooth", block: "center" });
+			.scrollIntoView({ behavior: "instant", block: "center" });
 	}, [location.state]);
 
 
