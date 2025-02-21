@@ -32,7 +32,6 @@ export default function SearchListItem({ movie, location, genresList }) {
 						Release date: {movie.release_date.split("-").reverse().join("-")}
 					</p>
 					<div className={style.rating}>
-						<span>{movie.vote_average.toFixed(2)}</span>
 						<RatingStars rating={movie.vote_average} />
 					</div>
 					<p>Votes {movie.vote_count}</p>

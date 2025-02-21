@@ -1,0 +1,20 @@
+.star-rating {
+  --percent-fill: calc(attr(data-rating type(<number>)) * 20%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  figure {
+    width: 10rem;
+    height: 1.75rem;
+    margin: 0;
+    background: linear-gradient(
+      to right,
+      #FFB400 var(--percent-fill),
+      transparent var(--percent-fill)
+    );
+    mask-image: url("../../images/star-full.svg");
+    mask-repeat: space;
+    mask-size: contain;
+  }
+}
