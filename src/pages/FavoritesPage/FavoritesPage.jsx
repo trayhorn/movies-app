@@ -54,25 +54,14 @@ export default function FavoritesPage() {
 	}
 
 	useEffect(() => {
-		async function fetchAccountLists() {
-			try {
-				const { data } = await getAccountLists();
-				setLists(data.results);
-			} catch (e) {
-				console.log(e)
-			}
-		}
-
-		fetchAccountLists();
-	}, [])
-
-
-  useEffect(() => {
-		async function fetchFavorites() {
+		async function fetchFavoritesAndLists() {
 			try {
 				setLoading(true);
-				const { data } = await getFavoriteMovies();
-				setFavorites(data.results.reverse());
+				const { data: favorites } = await getFavoriteMovies();
+				setFavorites(favorites.results.reverse());
+
+				const { data: lists } = await getAccountLists();
+				setLists(lists.results);
 			} catch (error) {
 				console.log(error.message);
 				setError(true);
@@ -81,8 +70,8 @@ export default function FavoritesPage() {
 			}
 		}
 
-		fetchFavorites();
-	}, []);
+		fetchFavoritesAndLists();
+	}, [])
 
 	return (
 		<>
