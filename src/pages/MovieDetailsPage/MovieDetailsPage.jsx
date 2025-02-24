@@ -5,11 +5,11 @@ import {
 	useLocation,
 	useParams,
 } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Fragment } from "react";
 import { getMovieDetails } from "../../api";
 import Loader from "../../components/utils/Loader";
 import MovieDetails from "../../components/MovieDetails/MovieDetails";
-import style from "./MovieDetailsPage.module.css";
+import "./MovieDetailsPage.scss";
 
 export default function MovieDetailsPage() {
 	const [movieDetails, setMovieDetails] = useState(null);
@@ -38,7 +38,7 @@ export default function MovieDetailsPage() {
 	return (
 		<>
 			<Link
-				className={style.goBackButton}
+				className="MovieDetailsPage_go-back-button"
 				to={backLinkRef.current}
 				state={{ movieIdfrom: movieId }}
 			>
@@ -53,21 +53,21 @@ export default function MovieDetailsPage() {
 			)}
 
 			{location.pathname.includes("cast") ? (
-				<NavLink className={style.link} to={calculatePath("cast")}>
+				<NavLink className="MovieDetailsPage_link" to={calculatePath("cast")}>
 					Cast
 				</NavLink>
 			) : (
-				<NavLink className={style.link} to="cast">
+				<NavLink className="MovieDetailsPage_link" to="cast">
 					Cast
 				</NavLink>
 			)}
 
 			{location.pathname.includes("reviews") ? (
-				<NavLink className={style.link} to={calculatePath("reviews")}>
+				<NavLink className="MovieDetailsPage_link" to={calculatePath("reviews")}>
 					Reviews
 				</NavLink>
 			) : (
-				<NavLink className={style.link} to="reviews">
+				<NavLink className="MovieDetailsPage_link" to="reviews">
 					Reviews
 				</NavLink>
 			)}

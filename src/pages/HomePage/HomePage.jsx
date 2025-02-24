@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPopularMovies, addToFavorites } from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
-import style from "./HomePage.module.css";
 import Loader from "../../components/utils/Loader";
+import "./HomePage.scss";
 
 
 export default function HomePage() {
@@ -26,7 +26,7 @@ export default function HomePage() {
   }, [])
   return (
 		<>
-			<h1 className={style.title}>Now trending</h1>
+			<h1 className="HomePage_heading">Now trending</h1>
 			{loading ? (
 				<Loader />
 			) : movies ? (

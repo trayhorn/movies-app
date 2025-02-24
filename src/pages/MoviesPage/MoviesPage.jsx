@@ -1,4 +1,3 @@
-// import style from "./MoviesPage.module.css";
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getAllGenres, discoverMovie } from "../../api";

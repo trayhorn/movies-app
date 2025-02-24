@@ -1,4 +1,4 @@
-import style from './ActorPage.module.css';
+import "./ActorPage.scss";
 import { Link, useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getActorDetails } from '../../api';
@@ -17,23 +17,22 @@ export default function ActorPage() {
 
   return (
 		<>
-			<section className={style.actorInfoSection}>
-				<div className={style.imageContainer}>
+			<section className="ActorPage_info">
+				<div>
 					<img
-						className={style.image}
 						src={`https://image.tmdb.org/t/p/w300${actorDetails.profile_path}`}
 						alt={`${actorDetails.name} photo`}
 					/>
 				</div>
-				<div className={style.actorInfo}>
-					<p className={style.actorText}>{actorDetails.name}</p>
-					<p className={style.actorText}>{actorDetails.birthday}</p>
-					<p className={style.actorText}>{actorDetails.place_of_birth}</p>
-					<p className={style.actorText}>{actorDetails.biography}</p>
+				<div>
+					<p className="text">{actorDetails.name}</p>
+					<p className="text">{actorDetails.birthday}</p>
+					<p className="text">{actorDetails.place_of_birth}</p>
+					<p className="text">{actorDetails.biography}</p>
 				</div>
 			</section>
-			<section className={style.actorMoviesSection}>
-				<ul className={style.actorMoviesList}>
+			<section className="ActorPage_movies">
+				<ul className='list'>
 					{actorDetails.movie_credits?.cast
 						.filter((el) => el.poster_path !== null)
 						.sort((a, b) => b.vote_count - a.vote_count)
@@ -47,17 +46,16 @@ export default function ActorPage() {
 									>
 										<div>
 											<img
-												className={style.moviesPoster}
+												className="poster"
 												src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
 												alt={movie.original_title}
 											/>
 										</div>
-										<p className={style.movieTitle}>{movie.original_title}</p>
+										<p className="title">{movie.original_title}</p>
 									</Link>
 								</li>
 							);
-            })
-          }
+						})}
 				</ul>
 			</section>
 		</>
