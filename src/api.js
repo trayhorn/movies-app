@@ -36,31 +36,30 @@ export function getAllGenres() {
 
 export function discoverMovie(
 	page,
-	genres,
-	vote_average,
-	release_date_from,
-	release_date_to,
-	sort_by
+	formValues
 ) {
 	const params = new URLSearchParams({
 		include_video: false,
 		include_adult: false,
 	});
-	
+
 	const filters = {
-		"primary_release_date.gte": release_date_from,
-		"primary_release_date.lte": release_date_to,
-		"vote_average.gte": vote_average,
-		"with_genres": genres,
-		"sort_by": sort_by,
+		"primary_release_date.gte": formValues.release_date_from,
+		"primary_release_date.lte": formValues.release_date_to,
+		"vote_average.gte": formValues.vote_average,
+		'with_genres': formValues.genres,
+		'sort_by': formValues.sort_by,
 	};
-	
+
+
 	Object.entries(filters).forEach(([key, value]) => {
 		if (value) params.append(key, value);
 	});
-	
+
 	return axios.get(`/discover/movie?page=${page}&${params}`);
 }
+
+// Favorites
 
 export function getFavoriteMovies(account_id) {
 	return axios.get(`/account/${account_id}/favorite/movies`)
@@ -83,6 +82,8 @@ export function removeFromFavorites(movie_id) {
 	};
 	return axios.post(`/account/16758631/favorite`, body);
 }
+
+// Watchlist
 
 export function getWatchlistMovies(account_id) {
 	return axios.get(`/account/${account_id}/watchlist/movies`);

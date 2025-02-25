@@ -12,13 +12,6 @@ export default function MoviesPage() {
 
 	const hasMoreRef = useRef(true);
 
-	const genres = searchParams.get("genres");
-	const vote_average = searchParams.get("vote_average");
-	const release_date_from = searchParams.get("release_date_from");
-	const release_date_to = searchParams.get("release_date_to");
-	const sort_by = searchParams.get('sort_by');
-
-
 	const handleFormSubmit = (formValues) => {
 		setPage(1);
 		setSearchParams(formValues);
@@ -40,16 +33,11 @@ export default function MoviesPage() {
 
 	useEffect(() => {
 		async function getFilteredMovies() {
-			if (!genres && !vote_average && !release_date_from && !release_date_to && !sort_by) return;
+			if (!searchParams) return;
+
+			const formValues = Object.fromEntries(searchParams);
 			try {
-				const { data } = await discoverMovie(
-					page,
-					genres,
-					vote_average,
-					release_date_from,
-					release_date_to,
-					sort_by
-				);
+				const { data } = await discoverMovie(page, formValues);
 
 				if (data.total_pages === page) hasMoreRef.current = false;
 
@@ -62,7 +50,7 @@ export default function MoviesPage() {
 		}
 
 		getFilteredMovies();
-	}, [genres, release_date_from, release_date_to, vote_average, sort_by, page]);
+	}, [searchParams, page]);
 
   return (
 		<>
