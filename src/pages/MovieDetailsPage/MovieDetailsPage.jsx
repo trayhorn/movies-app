@@ -5,7 +5,7 @@ import {
 	useLocation,
 	useParams,
 } from "react-router-dom";
-import { useEffect, useState, useRef, Fragment } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getMovieDetails } from "../../api";
 import Loader from "../../components/utils/Loader";
 import MovieDetails from "../../components/MovieDetails/MovieDetails";
@@ -19,10 +19,14 @@ export default function MovieDetailsPage() {
 
 	const backLinkRef = useRef(location.state?.from ?? "/movies");
 
-	const calculatePath = keyword => {
-		return "/".concat(
-			location.pathname.slice(1, location.pathname.indexOf(keyword) - 1)
-		);
+	const calculateLinkPath = (keyword) => {
+		if (location.pathname.includes(keyword)) {
+			return "/".concat(
+				location.pathname.slice(1, location.pathname.indexOf(keyword) - 1)
+			);
+		} else {
+			return keyword;
+		}
 	}
 
 	useEffect(() => {
@@ -44,6 +48,7 @@ export default function MovieDetailsPage() {
 			>
 				Go back
 			</Link>
+
 			{loading ? (
 				<Loader />
 			) : movieDetails ? (
@@ -52,25 +57,18 @@ export default function MovieDetailsPage() {
 				<div>Error</div>
 			)}
 
-			{location.pathname.includes("cast") ? (
-				<NavLink className="MovieDetailsPage_link" to={calculatePath("cast")}>
-					Cast
-				</NavLink>
-			) : (
-				<NavLink className="MovieDetailsPage_link" to="cast">
-					Cast
-				</NavLink>
-			)}
-
-			{location.pathname.includes("reviews") ? (
-				<NavLink className="MovieDetailsPage_link" to={calculatePath("reviews")}>
-					Reviews
-				</NavLink>
-			) : (
-				<NavLink className="MovieDetailsPage_link" to="reviews">
-					Reviews
-				</NavLink>
-			)}
+			<NavLink
+				className="MovieDetailsPage_link"
+				to={calculateLinkPath("cast")}
+			>
+				Cast
+			</NavLink>
+			<NavLink
+				className="MovieDetailsPage_link"
+				to={calculateLinkPath("reviews")}
+			>
+				Reviews
+			</NavLink>
 			<Outlet />
 		</>
 	);
