@@ -33,7 +33,7 @@ export default function MoviesPage() {
 
 	useEffect(() => {
 		async function getFilteredMovies() {
-			if (!searchParams) return;
+			if (searchParams.size === 0) return;
 
 			const formValues = Object.fromEntries(searchParams);
 			try {

@@ -6,9 +6,10 @@ import {
 	deleteList,
 } from "../../api";
 import Loader from "../../components/utils/Loader";
-import FavoriteMoviesList from "../../components/FavoriteMoviesList/FavoriteMoviesList";
+import Dropdown from "../../components/Dropdown/Dropdown";
 import { useParams, Outlet } from "react-router-dom";
 import FavoritesNav from "../../components/FavoritesNav/FavoritesNav";
+import MoviesList from "../../components/MoviesList/MoviesList";
 
 export default function FavoritesPage() {
 	const [favorites, setFavorites] = useState([]);
@@ -82,7 +83,13 @@ export default function FavoritesPage() {
 			/>
 			{loading && <Loader />}
 			{!listId && favorites ? (
-				<FavoriteMoviesList moviesToRender={favorites} lists={lists} />
+				<MoviesList
+					moviesToRender={favorites}
+					lists={lists}
+					renderDropdown={(movie) => (
+						<Dropdown movie={movie} lists={lists} />
+					)}
+				/>
 			) : (
 				<Outlet />
 			)}

@@ -1,31 +1,39 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import style from './MoviesList.module.css';
+import './MoviesList.scss';
+
 
 export default function MoviesList({
 	moviesToRender,
+	renderIcon,
+	renderDropdown,
 }) {
 	const location = useLocation();
+	const { listId } = useParams();
 
 	return (
-		<ul className={style.gallery}>
+		<ul className="gallery">
 			{moviesToRender.map((movie) => {
 				return (
-					<li className={style.galleryItem} key={movie.id}>
+					<li className="galleryItem" key={movie.id}>
 						<Link
 							to={`/movies/${movie.id}`}
 							state={{ from: location }}
-							className={style.link}
+							className="link"
 						>
-							<div className={style.posterContainer}>
+							<div className="posterContainer">
 								<img
-									className={style.poster}
+									className="poster"
 									src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
 									alt={movie.title}
 								/>
 							</div>
-							<p className={style.movieTitle}>{movie.title}</p>
+							<p className="movieTitle">{movie.title}</p>
 						</Link>
+
+						{renderIcon && renderIcon(listId, movie.id)}
+
+						{renderDropdown && renderDropdown(movie)}
 					</li>
 				);
 			})}
@@ -35,4 +43,6 @@ export default function MoviesList({
 
 MoviesList.propTypes = {
 	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
+	renderIcon: PropTypes.node,
+	renderDropdown: PropTypes.node
 };

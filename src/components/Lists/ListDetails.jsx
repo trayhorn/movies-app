@@ -1,9 +1,12 @@
+import "./ListDetails.scss";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom"
 import { getListDetails } from "../../api";
-import ListGallery from "./ListGallery";
 import { removeMovieFromList } from "../../api";
 import { errorToast } from "../utils/toasts";
+import MoviesList from "../MoviesList/MoviesList";
+import { RxCross2 } from "react-icons/rx";
+
 
 
 export function ListDetails() {
@@ -42,9 +45,18 @@ export function ListDetails() {
   return (
 		<>
 			{details?.item_count > 0 ? (
-				<ListGallery
+				<MoviesList
 					moviesToRender={details.items}
 					handleClick={handleRemoveFromList}
+					renderIcon={(listId, movieId) => (
+						<div className="delete-icon_container">
+							<RxCross2
+								size="1.5rem"
+								className="icon"
+								onClick={() => handleRemoveFromList(listId, movieId)}
+							/>
+						</div>
+					)}
 				/>
 			) : (
 				<p>No movies in this list</p>

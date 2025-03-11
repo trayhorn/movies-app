@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getPopularMovies, addToFavorites } from "../../api";
+import { getPopularMovies } from "../../api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import Loader from "../../components/utils/Loader";
 import "./HomePage.scss";
@@ -32,7 +32,6 @@ export default function HomePage() {
 			) : movies ? (
 					<MoviesList
 						moviesToRender={movies}
-						handleFavorites={addToFavorites}
 					/>
 				) : <div>Error</div>
 			}
