@@ -1,28 +1,33 @@
-import { useState, useEffect, useRef } from "react";
 import "./Dropdown.scss";
-import PropTypes from "prop-types";
+import { useState, useEffect, useRef } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { addMovieToList } from "../../api";
 import { addedToList } from "../utils/toasts";
+import { List } from "../../types/types";
 
-export default function Dropdown({movie, lists}) {
-  const [openId, setOpenId] = useState(false);
-	const ref = useRef(null);
+type DropdownType = {
+	movie: { id: number},
+	lists: List[],
+};
 
+export default function Dropdown({ movie, lists }: DropdownType) {
+	const [openId, setOpenId] = useState<number | null>(null);
+	const ref = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleClick = (e) => {
-			if (ref.current.contains(e.target)) {
+	useEffect(() => {
+		const handleClick = (e: MouseEvent) => {
+			const el = e.target as HTMLElement;
+			if (ref.current && ref.current.contains(el)) {
 				return;
 			}
-			setOpenId(false);
-    };
+			setOpenId(null);
+		};
 
 		window.addEventListener("click", handleClick);
 		return () => window.removeEventListener("click", handleClick);
 	}, [lists]);
 
-  return (
+	return (
 		<div className="addToListWrapper">
 			<div className="add-icon_container" ref={ref}>
 				<BsThreeDotsVertical
@@ -31,7 +36,7 @@ export default function Dropdown({movie, lists}) {
 					onClick={() => setOpenId(movie.id === openId ? null : movie.id)}
 				/>
 			</div>
-			<div className={"addToList" + (openId ? ' open' : '')}>
+			<div className={"addToList" + (openId ? " open" : "")}>
 				<ul className="dropdown">
 					{lists.map((el) => {
 						return (
@@ -52,8 +57,3 @@ export default function Dropdown({movie, lists}) {
 		</div>
 	);
 }
-
-Dropdown.propTypes = {
-	movie: PropTypes.object,
-	lists: PropTypes.array
-};

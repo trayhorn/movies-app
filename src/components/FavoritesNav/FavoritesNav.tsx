@@ -1,18 +1,24 @@
-import PropTypes from "prop-types";
 import "./FavoritesNav.scss";
 import { NavLink } from "react-router-dom";
 import { FaPlus, FaCheck } from "react-icons/fa";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
+import { ListType } from "../../types/types";
+
+type FavoritesNavType = {
+	onDeleteClick: (listId: number) => void;
+	onSubmit: (e: FormEvent) => void;
+	lists: ListType[];
+};
 
 
-export default function FavoritesNav({ onDeleteClick, onSubmit, lists }) {
+export default function FavoritesNav({ onDeleteClick, onSubmit, lists }: FavoritesNavType) {
 	const [addList, setAddlist] = useState(false);
 
-	const handleSubmit = (e) => {
+	const handleSubmit = (e: FormEvent) => {
 		onSubmit(e);
 		setAddlist(false);
-	}
+	};
 
 	return (
 		<nav aria-label="favorites-nav" className="favorites-nav">
@@ -71,9 +77,3 @@ export default function FavoritesNav({ onDeleteClick, onSubmit, lists }) {
 		</nav>
 	);
 }
-
-FavoritesNav.propTypes = {
-	lists: PropTypes.array,
-	onDeleteClick: PropTypes.func,
-	onSubmit: PropTypes.func
-};
