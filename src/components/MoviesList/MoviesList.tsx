@@ -1,19 +1,26 @@
 import { Link, useLocation, useParams } from "react-router-dom";
-import PropTypes from "prop-types";
 import './MoviesList.scss';
+import { MovieToRender } from "../../types/types";
+
+type MoviesList = {
+	moviesToRender: MovieToRender[];
+	renderIcon?: (listId: string, movieId: string) => JSX.Element;
+	renderDropdown?: (movie: MovieToRender) => JSX.Element;
+};
 
 
 export default function MoviesList({
 	moviesToRender,
 	renderIcon,
 	renderDropdown,
-}) {
+}: MoviesList) {
 	const location = useLocation();
 	const { listId } = useParams();
+	console.log(" in MoviesList: ", listId);
 
 	return (
 		<ul className="gallery">
-			{moviesToRender.map((movie) => {
+			{moviesToRender.map((movie: MovieToRender) => {
 				return (
 					<li className="galleryItem" key={movie.id}>
 						<Link
@@ -31,7 +38,7 @@ export default function MoviesList({
 							<p className="movieTitle">{movie.title}</p>
 						</Link>
 
-						{renderIcon && renderIcon(listId, movie.id)}
+						{renderIcon && listId && renderIcon(listId, movie.id)}
 
 						{renderDropdown && renderDropdown(movie)}
 					</li>
@@ -40,9 +47,3 @@ export default function MoviesList({
 		</ul>
 	);
 }
-
-MoviesList.propTypes = {
-	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
-	renderIcon: PropTypes.node,
-	renderDropdown: PropTypes.node
-};

@@ -6,15 +6,20 @@ import { removeMovieFromList } from "../../api";
 import { errorToast } from "../utils/toasts";
 import MoviesList from "../MoviesList/MoviesList";
 import { RxCross2 } from "react-icons/rx";
-
+import { MovieToRender } from "../../types/types";
 
 
 export function ListDetails() {
-  const [details, setDetails] = useState([]);
+	const [details, setDetails] = useState<{
+		item_count: number;
+		items: MovieToRender[];
+	} | null>(null);
 
 	const { listId } = useParams();
+	console.log(" in ListDetails: ", listId);
 
-	const handleRemoveFromList = async (listId, movieId) => {
+
+	const handleRemoveFromList = async (listId: string, movieId: string) => {
 		try {
 			await removeMovieFromList(listId, movieId);
 			const { data } = await getListDetails(listId);
@@ -30,7 +35,7 @@ export function ListDetails() {
       return;
     }
 
-    async function fetchListDetails(listId) {
+    async function fetchListDetails(listId: string) {
 			try {
         const { data } = await getListDetails(listId);
 				setDetails(data);
@@ -44,10 +49,9 @@ export function ListDetails() {
 
   return (
 		<>
-			{details?.item_count > 0 ? (
+			{details && details?.item_count > 0 ? (
 				<MoviesList
 					moviesToRender={details.items}
-					handleClick={handleRemoveFromList}
 					renderIcon={(listId, movieId) => (
 						<div className="delete-icon_container">
 							<RxCross2
