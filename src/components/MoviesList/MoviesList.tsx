@@ -16,7 +16,6 @@ export default function MoviesList({
 }: MoviesList) {
 	const location = useLocation();
 	const { listId } = useParams();
-	console.log(" in MoviesList: ", listId);
 
 	return (
 		<ul className="gallery">

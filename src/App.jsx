@@ -10,13 +10,13 @@ import WatchList from './pages/WatchList/WatchList';
 import { ListDetails } from './components/Lists/ListDetails';
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
-const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage"));
+const MoviesPage = lazy(() => import("./pages/MoviesPage/MoviesPage.tsx"));
 const MovieDetailsPage = lazy(() =>
 	import("./pages/MovieDetailsPage/MovieDetailsPage")
 );
-const MovieCast = lazy(() => import("./components/MovieCast/MovieCast"));
+const MovieCast = lazy(() => import("./components/MovieCast/MovieCast.tsx"));
 const MovieReviews = lazy(() =>
-	import("./components/MovieReviews/MovieReviews")
+	import("./components/MovieReviews/MovieReviews.tsx")
 );
 
 

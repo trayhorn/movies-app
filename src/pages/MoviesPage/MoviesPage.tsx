@@ -3,19 +3,20 @@ import { useSearchParams } from "react-router-dom";
 import { getAllGenres, discoverMovie } from "../../api";
 import MoviesSearchList from "../../components/MoviesSearchList/MoviesSearchList";
 import SearchForm from "../../components/SearchForm/SearchForm";
+import { MovieToRender, Genre, SearchFormType } from "../../types/types";
 
 export default function MoviesPage() {
-	const [filteredMovies, setFilteredMovies] = useState([]);
-	const [page, setPage] = useState(1);
-	const [genresList, setGenresList] = useState('');
+	const [filteredMovies, setFilteredMovies] = useState<MovieToRender[] | []>([]);
+	const [page, setPage] = useState<number>(1);
+	const [genresList, setGenresList] = useState<Genre[] | []>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const hasMoreRef = useRef(true);
 
-	const handleFormSubmit = (formValues) => {
+	const handleFormSubmit = (formValues: SearchFormType): void => {
 		setPage(1);
 		setSearchParams(formValues);
-	}
+	};
 
 
 	useEffect(() => {

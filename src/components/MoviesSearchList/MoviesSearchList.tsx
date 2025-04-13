@@ -1,12 +1,24 @@
-import { useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Location, useLocation } from "react-router-dom";
 import style from "./MoviesSearchList.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SearchListItem from "../SearchListItem/SearchListItem";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { MovieToRender, Genre } from "../../types/types";
 
-export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore, genresList }) {
-	const location = useLocation();
+type MoviesSearchListType = {
+	moviesToRender: MovieToRender[];
+	fetchMore: () => void;
+	hasMore: boolean;
+	genresList: Genre[];
+};
+
+export default function MoviesSearchList({
+	moviesToRender,
+	fetchMore,
+	hasMore,
+	genresList,
+}: MoviesSearchListType) {
+	const location: Location = useLocation();
 
 	useEffect(() => {
 		if (!location.state) {
@@ -14,11 +26,10 @@ export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore, g
 		}
 
 		const movieId = location.state.movieIdfrom;
-		document
-			.getElementById(movieId)
-			.scrollIntoView({ behavior: "instant", block: "center" });
-	}, [location.state]);
+		const element = document.getElementById(movieId);
 
+		element?.scrollIntoView({ behavior: "instant", block: "center" });
+	}, [location.state]);
 
 	return (
 		<ul className={style.gallery}>
@@ -48,10 +59,3 @@ export default function MoviesSearchList({ moviesToRender, fetchMore, hasMore, g
 		</ul>
 	);
 }
-
-MoviesSearchList.propTypes = {
-	moviesToRender: PropTypes.arrayOf(PropTypes.shape),
-	fetchMore: PropTypes.func,
-	hasMore: PropTypes.bool,
-	genresList: PropTypes.arrayOf(PropTypes.shape)
-};

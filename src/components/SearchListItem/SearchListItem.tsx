@@ -1,14 +1,23 @@
 import style from "./SearchListItem.module.css";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Link, Location } from "react-router-dom";
 import RatingStars from "../utils/RatingStars";
+import { MovieToRender, Genre } from "../../types/types";
 
-export default function SearchListItem({ movie, location, genresList }) {
+type SearchListItemType = {
+	movie: MovieToRender;
+	location: Location;
+	genresList: Genre[];
+};
 
+export default function SearchListItem({
+	movie,
+	location,
+	genresList,
+}: SearchListItemType) {
 	const genres = genresList
 		.filter((el) => movie.genre_ids.includes(el.id))
-		.map(el => el.name)
-		.join(', ');
+		.map((el) => el.name)
+		.join(", ");
 
 	return (
 		<li key={movie.id} id={movie.id}>
@@ -40,18 +49,3 @@ export default function SearchListItem({ movie, location, genresList }) {
 		</li>
 	);
 }
-
-SearchListItem.propTypes = {
-	movie: PropTypes.shape({
-		id: PropTypes.number,
-		poster_path: PropTypes.string,
-		title: PropTypes.string,
-		release_date: PropTypes.string,
-		overview: PropTypes.string,
-		vote_count: PropTypes.number,
-		vote_average: PropTypes.number,
-		genre_ids: PropTypes.array
-	}),
-	location: PropTypes.object,
-	genresList: PropTypes.arrayOf(PropTypes.shape),
-};

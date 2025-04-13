@@ -2,6 +2,7 @@ import { getMovieCast } from "../../api";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import style from './MovieCast.module.css';
+import { CastCard } from "../../types/types";
 
 export default function MovieCast() {
   const [cast, setCast] = useState([]);
@@ -16,7 +17,7 @@ export default function MovieCast() {
   return (
 		<ul className={style.castGallery}>
 			{cast
-				.filter((el) => el.profile_path !== null)
+				.filter((el: CastCard) => el.profile_path !== null)
 				.map(({ id, name, profile_path, character }) => {
 					return (
 						<li className={style.actorCard} key={id}>

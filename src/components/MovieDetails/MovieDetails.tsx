@@ -2,8 +2,13 @@ import style from './MovieDetails.module.css';
 import PropTypes from 'prop-types';
 import useWatchList from '../../hooks/useWatchList';
 import useFavorites from '../../hooks/useFavorites';
+import { MovieDetailsType, Video } from '../../types/types';
 
-export default function MovieDetails({ detailsToRender }) {
+type movieDetailsProp = {
+	detailsToRender: MovieDetailsType
+};
+
+export default function MovieDetails({ detailsToRender }: movieDetailsProp) {
 	const {
 		id,
 		poster_path,
@@ -18,9 +23,9 @@ export default function MovieDetails({ detailsToRender }) {
 	const { isInFavorites, handleFavorite } = useFavorites(id);
 	const { inWatchList, handleWatchList } = useWatchList(id);
 
-  const trailer =
-		videos.results.find((el) => el.name === "Official Trailer") ||
-		videos.results.filter((el) => el.type === "Trailer")[0] ||
+	const trailer =
+		videos.results.find((el: Video) => el.name === "Official Trailer") ||
+		videos.results.filter((el: Video) => el.type === "Trailer")[0] ||
 		videos.results[0];
 
 	return (
@@ -40,7 +45,7 @@ export default function MovieDetails({ detailsToRender }) {
 			<div className={style.overviewContainer}>
 				<h1>{original_title}</h1>
 				<p>{overview}</p>
-				<p>Budget: {budget / 100}</p>
+				<p>Budget: {Number(budget) / 100}</p>
 				<p>Genres: {genres?.map((el) => el.name).join(", ")}</p>
 				<p>Release date: {release_date}</p>
 
@@ -48,7 +53,7 @@ export default function MovieDetails({ detailsToRender }) {
 					className={style.player}
 					title="movie trailer"
 					allow="fullscreen"
-					src={`https://www.youtube.com/embed/${trailer.key}`}
+					src={`https://www.youtube.com/embed/${trailer?.key}`}
 				></iframe>
 			</div>
 		</div>

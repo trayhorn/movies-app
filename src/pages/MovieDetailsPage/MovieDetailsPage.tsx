@@ -10,16 +10,18 @@ import { getMovieDetails } from "../../api";
 import Loader from "../../components/utils/Loader";
 import MovieDetails from "../../components/MovieDetails/MovieDetails";
 import "./MovieDetailsPage.scss";
+import { MovieDetailsType } from "../../types/types";
+
 
 export default function MovieDetailsPage() {
-	const [movieDetails, setMovieDetails] = useState(null);
+	const [movieDetails, setMovieDetails] = useState<MovieDetailsType | null>(null);
 	const [loading, setLoading] = useState(false);
 	const { movieId } = useParams();
 	const location = useLocation();
 
 	const backLinkRef = useRef(location.state?.from ?? "/movies");
 
-	const calculateLinkPath = (keyword) => {
+	const calculateLinkPath = (keyword: string): string => {
 		if (location.pathname.includes(keyword)) {
 			return "/".concat(
 				location.pathname.slice(1, location.pathname.indexOf(keyword) - 1)
