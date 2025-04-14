@@ -1,13 +1,13 @@
 import "./Dropdown.scss";
 import { useState, useEffect, useRef } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { addMovieToList } from "../../api";
+import { addMovieToList } from "../../api/api";
 import { addedToList } from "../utils/toasts";
-import { List } from "../../types/types";
+import { ListType } from "../../types/types";
 
 type DropdownType = {
-	movie: { id: number},
-	lists: List[],
+	movie: { id: number };
+	lists: ListType[];
 };
 
 export default function Dropdown({ movie, lists }: DropdownType) {

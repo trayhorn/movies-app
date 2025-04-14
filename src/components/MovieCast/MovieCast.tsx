@@ -1,20 +1,20 @@
-import { getMovieCast } from "../../api";
+import { getMovieCast } from "../../api/api";
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import style from './MovieCast.module.css';
+import style from "./MovieCast.module.css";
 import { CastCard } from "../../types/types";
 
 export default function MovieCast() {
-  const [cast, setCast] = useState([]);
-  const {movieId} = useParams();
+	const [cast, setCast] = useState([]);
+	const { movieId } = useParams();
 
-  useEffect(() => {
-    getMovieCast(movieId)
+	useEffect(() => {
+		getMovieCast(movieId)
 			.then((res) => setCast(res.data.cast))
 			.catch((e) => console.log(e));
 	}, [movieId]);
 
-  return (
+	return (
 		<ul className={style.castGallery}>
 			{cast
 				.filter((el: CastCard) => el.profile_path !== null)

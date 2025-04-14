@@ -1,13 +1,12 @@
 import "./ListDetails.scss";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
-import { getListDetails } from "../../api";
-import { removeMovieFromList } from "../../api";
+import { useParams } from "react-router-dom";
+import { getListDetails } from "../../api/api";
+import { removeMovieFromList } from "../../api/api";
 import { errorToast } from "../utils/toasts";
 import MoviesList from "../MoviesList/MoviesList";
 import { RxCross2 } from "react-icons/rx";
 import { MovieToRender } from "../../types/types";
-
 
 export function ListDetails() {
 	const [details, setDetails] = useState<{
@@ -17,7 +16,6 @@ export function ListDetails() {
 
 	const { listId } = useParams();
 	console.log(" in ListDetails: ", listId);
-
 
 	const handleRemoveFromList = async (listId: string, movieId: string) => {
 		try {
@@ -30,24 +28,24 @@ export function ListDetails() {
 		}
 	};
 
-  useEffect(() => {
-    if (!listId) {
-      return;
-    }
+	useEffect(() => {
+		if (!listId) {
+			return;
+		}
 
-    async function fetchListDetails(listId: string) {
+		async function fetchListDetails(listId: string) {
 			try {
-        const { data } = await getListDetails(listId);
+				const { data } = await getListDetails(listId);
 				setDetails(data);
 			} catch (e) {
 				console.log(e);
 			}
 		}
 
-    fetchListDetails(listId);
-  }, [listId])
+		fetchListDetails(listId);
+	}, [listId]);
 
-  return (
+	return (
 		<>
 			{details && details?.item_count > 0 ? (
 				<MoviesList

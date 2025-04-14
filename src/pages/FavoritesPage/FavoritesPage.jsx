@@ -4,7 +4,7 @@ import {
 	createList,
 	getAccountLists,
 	deleteList,
-} from "../../api";
+} from "../../api/api";
 import Loader from "../../components/utils/Loader";
 import Dropdown from "../../components/Dropdown/Dropdown";
 import { useParams, Outlet } from "react-router-dom";
@@ -24,13 +24,13 @@ export default function FavoritesPage() {
 		e.preventDefault();
 		const value = e.target.elements.name.value.trim();
 
-		if (value === '') {
-			alert('The field is empty');
+		if (value === "") {
+			alert("The field is empty");
 			return;
 		}
 
 		if (lists.find((el) => el.name === value)) {
-			alert('Collection already exists')
+			alert("Collection already exists");
 		} else {
 			try {
 				await createList(value);
@@ -42,7 +42,7 @@ export default function FavoritesPage() {
 		}
 
 		e.target.reset();
-	}
+	};
 
 	const handleDeleteClick = async (listId) => {
 		try {
@@ -52,7 +52,7 @@ export default function FavoritesPage() {
 		} catch (e) {
 			console.log(e);
 		}
-	}
+	};
 
 	useEffect(() => {
 		async function fetchFavoritesAndLists() {
@@ -72,7 +72,7 @@ export default function FavoritesPage() {
 		}
 
 		fetchFavoritesAndLists();
-	}, [])
+	}, []);
 
 	return (
 		<>
@@ -86,9 +86,7 @@ export default function FavoritesPage() {
 				<MoviesList
 					moviesToRender={favorites}
 					lists={lists}
-					renderDropdown={(movie) => (
-						<Dropdown movie={movie} lists={lists} />
-					)}
+					renderDropdown={(movie) => <Dropdown movie={movie} lists={lists} />}
 				/>
 			) : (
 				<Outlet />

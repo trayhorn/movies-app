@@ -1,21 +1,21 @@
 import "./ActorPage.scss";
-import { Link, useParams, useLocation } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { getActorDetails } from '../../api';
+import { Link, useParams, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getActorDetails } from "../../api/api";
 
 export default function ActorPage() {
-  const [actorDetails, setActorDetails] = useState([]);
-  const location = useLocation();
+	const [actorDetails, setActorDetails] = useState([]);
+	const location = useLocation();
 
-  const { actorId } = useParams();
+	const { actorId } = useParams();
 
-  useEffect(() => {
+	useEffect(() => {
 		getActorDetails(actorId)
 			.then((res) => setActorDetails(res.data))
 			.catch((e) => console.log(e));
-  }, [actorId]);
+	}, [actorId]);
 
-  return (
+	return (
 		<>
 			<section className="ActorPage_info">
 				<div>
@@ -32,7 +32,7 @@ export default function ActorPage() {
 				</div>
 			</section>
 			<section className="ActorPage_movies">
-				<ul className='list'>
+				<ul className="list">
 					{actorDetails.movie_credits?.cast
 						.filter((el) => el.poster_path !== null)
 						.sort((a, b) => b.vote_count - a.vote_count)
@@ -61,4 +61,3 @@ export default function ActorPage() {
 		</>
 	);
 }
-

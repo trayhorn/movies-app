@@ -1,36 +1,34 @@
-import { useEffect, useState } from "react"
-import { getWatchlistMovies } from "../../api";
+import { useEffect, useState } from "react";
+import { getWatchlistMovies } from "../../api/api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import Loader from "../../components/utils/Loader";
 
 export default function WatchList() {
-  const [watchListMovies, setWatchListMovies] = useState([]);
+	const [watchListMovies, setWatchListMovies] = useState([]);
 	const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  
-  useEffect(() => {
-      async function fetchWatchList() {
-        try {
-          setLoading(true);
-          const { data } = await getWatchlistMovies();
-          setWatchListMovies(data.results);
-        } catch (error) {
-          console.log(error.message);
-          setError(true);
-        } finally {
-          setLoading(false);
-        }
-      }
-  
-      fetchWatchList();
-    }, []);
-  
-  return (
-    <>
+	const [error, setError] = useState(false);
+
+	useEffect(() => {
+		async function fetchWatchList() {
+			try {
+				setLoading(true);
+				const { data } = await getWatchlistMovies();
+				setWatchListMovies(data.results);
+			} catch (error) {
+				console.log(error.message);
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		}
+
+		fetchWatchList();
+	}, []);
+
+	return (
+		<>
 			{loading && <Loader />}
-      {watchListMovies && (
-        <MoviesList moviesToRender={watchListMovies} />
-      )}
+			{watchListMovies && <MoviesList moviesToRender={watchListMovies} />}
 			{error && <div>Something went wrong</div>}
 		</>
 	);

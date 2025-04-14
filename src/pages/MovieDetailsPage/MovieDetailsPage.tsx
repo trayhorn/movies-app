@@ -6,15 +6,16 @@ import {
 	useParams,
 } from "react-router-dom";
 import { useEffect, useState, useRef } from "react";
-import { getMovieDetails } from "../../api";
+import { getMovieDetails } from "../../api/api";
 import Loader from "../../components/utils/Loader";
 import MovieDetails from "../../components/MovieDetails/MovieDetails";
 import "./MovieDetailsPage.scss";
 import { MovieDetailsType } from "../../types/types";
 
-
 export default function MovieDetailsPage() {
-	const [movieDetails, setMovieDetails] = useState<MovieDetailsType | null>(null);
+	const [movieDetails, setMovieDetails] = useState<MovieDetailsType | null>(
+		null
+	);
 	const [loading, setLoading] = useState(false);
 	const { movieId } = useParams();
 	const location = useLocation();
@@ -29,7 +30,7 @@ export default function MovieDetailsPage() {
 		} else {
 			return keyword;
 		}
-	}
+	};
 
 	useEffect(() => {
 		setLoading(true);
@@ -59,10 +60,7 @@ export default function MovieDetailsPage() {
 				<div>Error</div>
 			)}
 
-			<NavLink
-				className="MovieDetailsPage_link"
-				to={calculateLinkPath("cast")}
-			>
+			<NavLink className="MovieDetailsPage_link" to={calculateLinkPath("cast")}>
 				Cast
 			</NavLink>
 			<NavLink

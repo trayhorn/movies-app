@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
-import { addToWatchList, getWatchlistMovies, removeFromWatchList } from "../api";
-import { addedToWishListToast, errorToast, removedFromWishListToast } from "../components/utils/toasts";
+import {
+	addToWatchList,
+	getWatchlistMovies,
+	removeFromWatchList,
+} from "../api/api";
+import {
+	addedToWishListToast,
+	errorToast,
+	removedFromWishListToast,
+} from "../components/utils/toasts";
 
 export default function useWatchList(id) {
-  const [inWatchList, setInWatchList] = useState(false);
+	const [inWatchList, setInWatchList] = useState(false);
 
-  const handleWatchList = async (movieId) => {
+	const handleWatchList = async (movieId) => {
 		if (inWatchList) {
 			try {
 				await removeFromWatchList(movieId);
@@ -26,20 +34,20 @@ export default function useWatchList(id) {
 		setInWatchList((prevState) => !prevState);
 	};
 
-  useEffect(() => {
-    async function checkWishList() {
-      try {
-        const { data } = await getWatchlistMovies();
-        if (data.results.find((el) => el.id === id)) {
-          setInWatchList(true);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
+	useEffect(() => {
+		async function checkWishList() {
+			try {
+				const { data } = await getWatchlistMovies();
+				if (data.results.find((el) => el.id === id)) {
+					setInWatchList(true);
+				}
+			} catch (error) {
+				console.log(error);
+			}
+		}
 
-    checkWishList();
-  })
+		checkWishList();
+	});
 
-  return { inWatchList, handleWatchList };
+	return { inWatchList, handleWatchList };
 }

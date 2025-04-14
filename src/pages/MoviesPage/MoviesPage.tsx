@@ -1,12 +1,14 @@
 import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getAllGenres, discoverMovie } from "../../api";
+import { getAllGenres, discoverMovie } from "../../api/api";
 import MoviesSearchList from "../../components/MoviesSearchList/MoviesSearchList";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import { MovieToRender, Genre, SearchFormType } from "../../types/types";
 
 export default function MoviesPage() {
-	const [filteredMovies, setFilteredMovies] = useState<MovieToRender[] | []>([]);
+	const [filteredMovies, setFilteredMovies] = useState<MovieToRender[] | []>(
+		[]
+	);
 	const [page, setPage] = useState<number>(1);
 	const [genresList, setGenresList] = useState<Genre[] | []>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -18,11 +20,10 @@ export default function MoviesPage() {
 		setSearchParams(formValues);
 	};
 
-
 	useEffect(() => {
 		async function renderGenres() {
 			try {
-				const {data} = await getAllGenres();
+				const { data } = await getAllGenres();
 				setGenresList(data.genres);
 			} catch (error) {
 				console.log(error);
@@ -30,7 +31,7 @@ export default function MoviesPage() {
 		}
 
 		renderGenres();
-	}, [])
+	}, []);
 
 	useEffect(() => {
 		async function getFilteredMovies() {
@@ -53,7 +54,7 @@ export default function MoviesPage() {
 		getFilteredMovies();
 	}, [searchParams, page]);
 
-  return (
+	return (
 		<>
 			{genresList && (
 				<SearchForm onSubmit={handleFormSubmit} genres={genresList} />
