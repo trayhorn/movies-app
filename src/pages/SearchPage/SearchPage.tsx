@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { addToFavorites, getSearchedMovies } from "../../api/api";
+import { getSearchedMovies } from "../../api/api";
 import MoviesList from "../../components/MoviesList/MoviesList";
+import { MovieToRender } from "../../types/types";
 
 export default function SearchPage() {
-	const [searchedMovies, setSearchedMovies] = useState();
+	const [searchedMovies, setSearchedMovies] = useState<MovieToRender[]>([]);
 	const [searchParams] = useSearchParams();
 
 	const searchQuery = searchParams.get("query") ?? "";
@@ -27,11 +28,12 @@ export default function SearchPage() {
 
 	return (
 		<>
-			{searchedMovies && (
+			{searchedMovies.length > 0 ? (
 				<MoviesList
 					moviesToRender={searchedMovies}
-					handleFavorites={addToFavorites}
 				/>
+			) : (
+					<p>Nothing found by this query</p>
 			)}
 		</>
 	);

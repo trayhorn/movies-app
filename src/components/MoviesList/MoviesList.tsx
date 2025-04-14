@@ -28,11 +28,20 @@ export default function MoviesList({
 							className="link"
 						>
 							<div className="posterContainer">
-								<img
-									className="poster"
-									src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-									alt={movie.title}
-								/>
+								{movie.poster_path ? (
+									<img
+										className="poster"
+										src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+										alt={movie.title}
+									/>
+								) : (
+									<img
+										style={{height: '100%', objectFit: "cover"}}
+										className="poster"
+										src='/images/no-image.jpg'
+										alt={movie.title}
+									/>
+								)}
 							</div>
 							<p className="movieTitle">{movie.title}</p>
 						</Link>

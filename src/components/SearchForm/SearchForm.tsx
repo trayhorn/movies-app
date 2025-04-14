@@ -1,8 +1,13 @@
 import { Formik, Field, Form } from "formik";
-import PropTypes from "prop-types";
 import style from "./SearchForm.module.css";
+import { SearchBoxType, Genre } from "../../types/types";
 
-export default function SearchForm({ onSubmit, genres }) {
+type SearchFormType = {
+	onSubmit: (formValues: SearchBoxType) => void;
+	genres: Genre[]
+};
+
+export default function SearchForm({ onSubmit, genres }: SearchFormType) {
 	return (
 		<Formik
 			initialValues={{
@@ -74,9 +79,3 @@ export default function SearchForm({ onSubmit, genres }) {
 		</Formik>
 	);
 }
-
-
-SearchForm.propTypes = {
-	onSubmit: PropTypes.func,
-	genres: PropTypes.array
-};

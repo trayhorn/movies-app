@@ -17,31 +17,33 @@
   position: relative;
   border: 1px solid transparent;
   background-color: var(--secondary-bg-color);
+
+  .link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+  }
+
+  .posterContainer {
+    flex: 1;
+    position: relative;
+  }
+
+  .poster {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .movieTitle {
+    color: var(--primary-text-color);
+    text-align: center;
+    padding: var(--spacing-md) var(--spacing-sm);
+  }
 }
+
 .galleryItem:has(:hover, :active, :focus) {
   background-color: var(--secondary-accent-color);
   border: 1px solid var(--secondary-accent-color);
-}
-.galleryItem:hover .favoritesIcon {
-  opacity: 0.65;
-}
-
-.link {
-  text-decoration: none;
-}
-
-.posterContainer {
-  position: relative;
-}
-
-.poster {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.movieTitle {
-  color: var(--primary-text-color);
-  text-align: center;
-  padding: var(--spacing-md) var(--spacing-sm);
 }
