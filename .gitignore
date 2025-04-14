@@ -24,5 +24,3 @@ dist-ssr
 *.sw?
 
 .codegpt
-
-/src/api/token.js
