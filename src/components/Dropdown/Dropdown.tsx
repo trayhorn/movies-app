@@ -3,10 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { addMovieToList } from "../../api/api";
 import { addedToList } from "../utils/toasts";
-import { ListType } from "../../types/types";
+import { ListType, MovieToRender } from "../../types/types";
 
 type DropdownType = {
-	movie: { id: number };
+	movie: MovieToRender;
 	lists: ListType[];
 };
 

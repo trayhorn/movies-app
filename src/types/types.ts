@@ -4,7 +4,7 @@ export type ListType = {
 };
 
 export type MovieToRender = {
-	id: string;
+	id: number;
 	poster_path: string;
 	genre_ids: number[];
 	title: string;
@@ -46,4 +46,20 @@ export type SearchBoxType = {
 	release_date_to?: string;
 	vote_average?: string;
 	sort_by?: string;
+};
+
+export type ActorDetailsType = {
+	name: string;
+	birthday: string;
+	place_of_birth: string;
+	biography: string;
+	profile_path: string;
+	movie_credits: {
+		cast: {
+			id: number;
+			poster_path: string;
+			vote_count: number;
+			original_title: string;
+		}[];
+	};
 };

@@ -4,7 +4,7 @@ import { MovieToRender } from "../../types/types";
 
 type MoviesList = {
 	moviesToRender: MovieToRender[];
-	renderIcon?: (listId: string, movieId: string) => JSX.Element;
+	renderIcon?: (listId: string, movieId: number) => JSX.Element;
 	renderDropdown?: (movie: MovieToRender) => JSX.Element;
 };
 

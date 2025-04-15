@@ -8,7 +8,7 @@ import { MovieToRender, Genre, SearchBoxType } from "../../types/types";
 export default function MoviesPage() {
 	const [filteredMovies, setFilteredMovies] = useState<MovieToRender[]>([]);
 	const [page, setPage] = useState<number>(1);
-	const [genresList, setGenresList] = useState<Genre[] | []>([]);
+	const [genresList, setGenresList] = useState<Genre[]>([]);
 	const [searchParams, setSearchParams] = useSearchParams();
 
 	const hasMoreRef = useRef(true);

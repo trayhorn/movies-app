@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { getWatchlistMovies } from "../../api/api";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import Loader from "../../components/utils/Loader";
+import { MovieToRender } from "../../types/types";
 
 export default function WatchList() {
-	const [watchListMovies, setWatchListMovies] = useState([]);
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
+	const [watchListMovies, setWatchListMovies] = useState<MovieToRender[]>([]);
+	const [loading, setLoading] = useState<boolean>(false);
+	const [error, setError] = useState<boolean>(false);
 
 	useEffect(() => {
 		async function fetchWatchList() {
@@ -14,8 +15,8 @@ export default function WatchList() {
 				setLoading(true);
 				const { data } = await getWatchlistMovies();
 				setWatchListMovies(data.results);
-			} catch (error) {
-				console.log(error.message);
+			} catch (e) {
+				console.log(e);
 				setError(true);
 			} finally {
 				setLoading(false);

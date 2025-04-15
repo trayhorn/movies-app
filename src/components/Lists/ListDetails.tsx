@@ -17,7 +17,7 @@ export function ListDetails() {
 	const { listId } = useParams();
 	console.log(" in ListDetails: ", listId);
 
-	const handleRemoveFromList = async (listId: string, movieId: string) => {
+	const handleRemoveFromList = async (listId: string, movieId: number) => {
 		try {
 			await removeMovieFromList(listId, movieId);
 			const { data } = await getListDetails(listId);

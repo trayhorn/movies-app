@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
 	getFavoriteMovies,
 	createList,
@@ -10,19 +10,22 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 import { useParams, Outlet } from "react-router-dom";
 import FavoritesNav from "../../components/FavoritesNav/FavoritesNav";
 import MoviesList from "../../components/MoviesList/MoviesList";
+import { ListType } from "../../types/types";
 
 export default function FavoritesPage() {
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 
-	const [lists, setLists] = useState([]);
+	const [lists, setLists] = useState<ListType[]>([]);
 
 	const { listId } = useParams();
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
-		const value = e.target.elements.name.value.trim();
+		const form = e.target as HTMLFormElement;
+		const value =
+			(form.elements.namedItem('name') as HTMLInputElement).value.trim();
 
 		if (value === "") {
 			alert("The field is empty");
@@ -41,10 +44,10 @@ export default function FavoritesPage() {
 			}
 		}
 
-		e.target.reset();
+		form.reset();
 	};
 
-	const handleDeleteClick = async (listId) => {
+	const handleDeleteClick = async (listId: number) => {
 		try {
 			await deleteList(listId);
 			const { data } = await getAccountLists();
@@ -63,8 +66,8 @@ export default function FavoritesPage() {
 
 				const { data: lists } = await getAccountLists();
 				setLists(lists.results);
-			} catch (error) {
-				console.log(error.message);
+			} catch (e) {
+				console.log(e);
 				setError(true);
 			} finally {
 				setLoading(false);
@@ -85,7 +88,6 @@ export default function FavoritesPage() {
 			{!listId && favorites ? (
 				<MoviesList
 					moviesToRender={favorites}
-					lists={lists}
 					renderDropdown={(movie) => <Dropdown movie={movie} lists={lists} />}
 				/>
 			) : (
