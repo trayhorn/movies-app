@@ -7,7 +7,7 @@ import { ListType } from "../../types/types";
 
 type FavoritesNavType = {
 	onDeleteClick: (listId: number) => void;
-	onSubmit: (e: FormEvent) => void;
+	onSubmit: (inputValue: string) => void;
 	lists: ListType[];
 };
 
@@ -16,8 +16,16 @@ export default function FavoritesNav({ onDeleteClick, onSubmit, lists }: Favorit
 	const [addList, setAddlist] = useState(false);
 
 	const handleSubmit = (e: FormEvent) => {
-		onSubmit(e);
+		e.preventDefault();
+		const form = e.target as HTMLFormElement;
+		const value = (
+			form.elements.namedItem("name") as HTMLInputElement
+		).value.trim();
+
+		if (!(value === '')) onSubmit(value);
+
 		setAddlist(false);
+		form.reset();
 	};
 
 	return (

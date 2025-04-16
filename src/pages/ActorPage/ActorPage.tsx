@@ -1,14 +1,18 @@
 import "./ActorPage.scss";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getActorDetails } from "../../api/api";
 import { ActorDetailsType } from "../../types/types";
+import MoviesList from "../../components/MoviesList/MoviesList";
 
 export default function ActorPage() {
 	const [actorDetails, setActorDetails] = useState<ActorDetailsType | null>(null);
-	const location = useLocation();
 
 	const { actorId } = useParams();
+
+	const actorsMovies = actorDetails?.movie_credits.cast
+		.filter((el) => el.poster_path !== null)
+		.sort((a, b) => b.vote_count - a.vote_count);
 
 	useEffect(() => {
 		getActorDetails(actorId)
@@ -34,31 +38,8 @@ export default function ActorPage() {
 					</div>
 				</section>
 			)}
-			<section className="ActorPage_movies">
-				<ul className="list">
-					{actorDetails?.movie_credits?.cast
-						.filter((el) => el.poster_path !== null)
-						.sort((a, b) => b.vote_count - a.vote_count)
-						.map(({ id, original_title, poster_path }) => {
-							return (
-								<li key={id}>
-									<Link
-										state={{ from: location }}
-										to={`/movies/${id}`}
-									>
-										<div>
-											<img
-												className="poster"
-												src={`https://image.tmdb.org/t/p/w200${poster_path}`}
-												alt={original_title}
-											/>
-										</div>
-										<p className="title">{original_title}</p>
-									</Link>
-								</li>
-							);
-						})}
-				</ul>
+			<section>
+				{actorsMovies && <MoviesList moviesToRender={actorsMovies} />}
 			</section>
 		</>
 	);

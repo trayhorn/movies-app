@@ -11,47 +11,36 @@ import { useParams, Outlet } from "react-router-dom";
 import FavoritesNav from "../../components/FavoritesNav/FavoritesNav";
 import MoviesList from "../../components/MoviesList/MoviesList";
 import { ListType } from "../../types/types";
+import { listNotAdded } from "../../components/utils/toasts";
 
 export default function FavoritesPage() {
 	const [favorites, setFavorites] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 
-	const [lists, setLists] = useState<ListType[]>([]);
+	const [accountLists, setAccountLists] = useState<ListType[]>([]);
 
 	const { listId } = useParams();
 
-	const handleSubmit = async (e: FormEvent) => {
-		e.preventDefault();
-		const form = e.target as HTMLFormElement;
-		const value =
-			(form.elements.namedItem('name') as HTMLInputElement).value.trim();
-
-		if (value === "") {
-			alert("The field is empty");
-			return;
-		}
-
-		if (lists.find((el) => el.name === value)) {
-			alert("Collection already exists");
+	const handleSubmit = async (inputValue: string) => {
+		if (accountLists.find((el) => el.name === inputValue)) {
+			listNotAdded();
 		} else {
 			try {
-				await createList(value);
+				await createList(inputValue);
 				const { data } = await getAccountLists();
-				setLists(data.results);
+				setAccountLists(data.results);
 			} catch (e) {
 				console.log(e);
 			}
 		}
-
-		form.reset();
 	};
 
 	const handleDeleteClick = async (listId: number) => {
 		try {
 			await deleteList(listId);
 			const { data } = await getAccountLists();
-			setLists(data.results);
+			setAccountLists(data.results);
 		} catch (e) {
 			console.log(e);
 		}
@@ -65,7 +54,7 @@ export default function FavoritesPage() {
 				setFavorites(favorites.results.reverse());
 
 				const { data: lists } = await getAccountLists();
-				setLists(lists.results);
+				setAccountLists(lists.results);
 			} catch (e) {
 				console.log(e);
 				setError(true);
@@ -82,13 +71,15 @@ export default function FavoritesPage() {
 			<FavoritesNav
 				onDeleteClick={handleDeleteClick}
 				onSubmit={handleSubmit}
-				lists={lists}
+				lists={accountLists}
 			/>
 			{loading && <Loader />}
 			{!listId && favorites ? (
 				<MoviesList
 					moviesToRender={favorites}
-					renderDropdown={(movie) => <Dropdown movie={movie} lists={lists} />}
+					renderDropdown={(movie) => (
+						<Dropdown movie={movie} lists={accountLists} />
+					)}
 				/>
 			) : (
 				<Outlet />

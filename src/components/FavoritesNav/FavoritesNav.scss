@@ -17,6 +17,10 @@
     border-bottom-color: var(--secondary-accent-color);
   }
 
+  .list {
+    flex-wrap: wrap;
+  }
+
   .form,
   .list {
     display: flex;

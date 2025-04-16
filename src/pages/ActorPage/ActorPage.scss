@@ -1,28 +1,9 @@
 .ActorPage_info {
   display: flex;
   gap: 50px;
+  padding-bottom: var(--spacing-md);
 
   .text {
     margin: var(--spacing-sm);
-  }
-}
-
-.ActorPage_movies {
-  .list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-    list-style: none;
-  }
-
-  .poster {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .title {
-    text-align: center;
-    padding: var(--spacing-sm);
   }
 }

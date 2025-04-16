@@ -12,6 +12,7 @@ export type MovieToRender = {
 	overview: string;
 	vote_average: number;
 	vote_count: number;
+	original_title?: string;
 };
 
 export type CastCard = {
@@ -55,11 +56,6 @@ export type ActorDetailsType = {
 	biography: string;
 	profile_path: string;
 	movie_credits: {
-		cast: {
-			id: number;
-			poster_path: string;
-			vote_count: number;
-			original_title: string;
-		}[];
+		cast: MovieToRender[];
 	};
 };

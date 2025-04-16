@@ -24,4 +24,16 @@ function addedToList(list_name) {
   return toast.success(`Added to ${list_name}`);
 }
 
-export { errorToast, addedToFavoritesToast, removedFromFavoritesToast, addedToWishListToast, removedFromWishListToast, addedToList };
+function listNotAdded() {
+	return toast.error('List with this name already exists');
+}
+
+export {
+	errorToast,
+	addedToFavoritesToast,
+	removedFromFavoritesToast,
+	addedToWishListToast,
+	removedFromWishListToast,
+	addedToList,
+	listNotAdded,
+};
