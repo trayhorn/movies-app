@@ -20,7 +20,7 @@ export default function SearchListItem({
 		.join(", ");
 
 	return (
-		<li key={movie.id} id={movie.id}>
+		<li key={movie.id} id={String(movie.id)}>
 			<Link
 				to={`/movies/${movie.id}`}
 				state={{ from: location }}
