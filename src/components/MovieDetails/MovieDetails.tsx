@@ -1,14 +1,15 @@
-import style from './MovieDetails.module.css';
-import PropTypes from 'prop-types';
+import './MovieDetails.scss';
 import useWatchList from '../../hooks/useWatchList';
 import useFavorites from '../../hooks/useFavorites';
 import { MovieDetailsType, Video } from '../../types/types';
+import { FaHeart, FaHeartBroken } from "react-icons/fa";
+import { MdBookmarkAdd, MdBookmarkRemove } from "react-icons/md";
 
-type movieDetailsProp = {
+type movieDetailsType = {
 	detailsToRender: MovieDetailsType
 };
 
-export default function MovieDetails({ detailsToRender }: movieDetailsProp) {
+export default function MovieDetails({ detailsToRender }: movieDetailsType) {
 	const {
 		id,
 		poster_path,
@@ -29,20 +30,40 @@ export default function MovieDetails({ detailsToRender }: movieDetailsProp) {
 		videos.results[0];
 
 	return (
-		<div className={style.detailsContainer}>
-			<div>
+		<div className="detailsContainer">
+			<div className="poster_wrapper">
 				<img
 					src={`https://image.tmdb.org/t/p/w400${poster_path}`}
 					alt="poster"
 				/>
-				<button onClick={() => handleFavorite(id)}>
-					{isInFavorites ? "Remove from" : "Add to"} favorites
+				<button
+					className="poster_button favorite"
+					onClick={() => handleFavorite(id)}
+				>
+					<span className='tooltip'>
+						{isInFavorites ? "Remove from" : "Add to"} favorites
+					</span>
+					{isInFavorites ? (
+						<FaHeartBroken className="icon" size={30} />
+					) : (
+						<FaHeart className="icon" size={30} />
+					)}
 				</button>
-				<button onClick={() => handleWatchList(id)}>
-					{inWatchList ? "Remove from" : "Add to"} watchlist
+				<button
+					className="poster_button watchlist"
+					onClick={() => handleWatchList(id)}
+				>
+					<span className="tooltip">
+						{inWatchList ? "Remove from" : "Add to"} watchlist
+					</span>
+					{inWatchList ? (
+						<MdBookmarkRemove className="icon" size={30} />
+					) : (
+						<MdBookmarkAdd className="icon" size={30} />
+					)}
 				</button>
 			</div>
-			<div className={style.overviewContainer}>
+			<div className="overviewContainer">
 				<h1>{original_title}</h1>
 				<p>{overview}</p>
 				<p>Budget: {Number(budget) / 100}</p>
@@ -50,7 +71,7 @@ export default function MovieDetails({ detailsToRender }: movieDetailsProp) {
 				<p>Release date: {release_date}</p>
 
 				<iframe
-					className={style.player}
+					className="player"
 					title="movie trailer"
 					allow="fullscreen"
 					src={`https://www.youtube.com/embed/${trailer?.key}`}
@@ -59,16 +80,3 @@ export default function MovieDetails({ detailsToRender }: movieDetailsProp) {
 		</div>
 	);
 }
-
-MovieDetails.propTypes = {
-	detailsToRender: PropTypes.shape({
-		id: PropTypes.number,
-		poster_path: PropTypes.string,
-		original_title: PropTypes.string,
-		budget: PropTypes.number,
-		genres: PropTypes.array,
-		release_date: PropTypes.string,
-		overview: PropTypes.string,
-		videos: PropTypes.object,
-	}),
-};
