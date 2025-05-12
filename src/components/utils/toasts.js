@@ -24,6 +24,10 @@ function addedToList(list_name) {
   return toast.success(`Added to ${list_name}`);
 }
 
+function errorAddingToList(list_name) {
+	return toast.error(`The movie already in the list`);
+}
+
 function listNotAdded() {
 	return toast.error('List with this name already exists');
 }
@@ -36,4 +40,5 @@ export {
 	removedFromWishListToast,
 	addedToList,
 	listNotAdded,
+	errorAddingToList,
 };
