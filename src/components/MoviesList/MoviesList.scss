@@ -43,7 +43,9 @@
   }
 }
 
-.galleryItem:has(:hover, :active, :focus) {
+.galleryItem:hover,
+.galleryItem:active,
+.galleryItem:focus {
   background-color: var(--secondary-accent-color);
   border: 1px solid var(--secondary-accent-color);
 }

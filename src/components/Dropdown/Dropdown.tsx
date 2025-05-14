@@ -38,7 +38,7 @@ export default function Dropdown({ movie, lists }: DropdownType) {
 	}, [lists]);
 
 	return (
-		<div className="addToListWrapper">
+		<div className={"addToListWrapper" + (openId ? " isShowing" : "")}>
 			<div className="add-icon_container" ref={ref}>
 				<BsThreeDotsVertical
 					className="add-icon"

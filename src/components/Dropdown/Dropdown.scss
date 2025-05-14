@@ -3,9 +3,15 @@
   top: 0;
   right: 0;
   overflow: hidden;
-  // opacity: 0;
-  // pointer-events: none;
-  // transition: opacity 100ms ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms ease-in-out;
+
+  .gallery:has(&.isShowing) .galleryItem {
+    pointer-events: none;
+    background-color: var(--secondary-background-color);
+    border: 1px solid transparent;
+  }
 
   .addToList {
     display: none;
@@ -49,6 +55,16 @@
       color: var(--secondary-accent-color);
     }
   }
+}
+
+.galleryItem:hover .addToListWrapper {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.addToListWrapper.isShowing {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @keyframes appear {
