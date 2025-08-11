@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import "./RatingStars.scss";
 
-export default function RatingStars({ rating }) {
+export default function RatingStars({ rating }: {rating: number}) {
   return (
 		<>
 			<div className="star-rating" data-rating={rating / 2}>

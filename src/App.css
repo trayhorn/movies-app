@@ -20,33 +20,10 @@ header {
   border-bottom-color: var(--secondary-accent-color);
 }
 
-.loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-}
-
 .infinite-scroll-component {
   @media screen and (min-width: 1024px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: var(--spacing-lg);
   }
-}
-
-
-
-.stars-container {
-  position: relative;
-  width: fit-content;
-  overflow: hidden;
-}
-
-.full-stars-container {
-  position: absolute;
-  top: 0;
 }

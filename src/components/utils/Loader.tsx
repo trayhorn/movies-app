@@ -9,7 +9,12 @@ export default function Loader() {
 			color="#FFB400"
 			secondaryColor="#FFB400"
 			ariaLabel="oval-loading"
-			wrapperClass="loader"
+			wrapperStyle={{
+				position: "absolute",
+				inset: "0",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
 		/>
 	);
 }

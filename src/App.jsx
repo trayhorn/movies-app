@@ -1,6 +1,6 @@
 import NotFound from './pages/NotFound/NotFound';
 import { Routes, Route } from 'react-router-dom';
-import SharedLayout from './components/SharedLayout';
+import SharedLayout from './components/SharedLayout.tsx';
 import { lazy } from "react";
 import './App.css';
 import ActorPage from './pages/ActorPage/ActorPage';
