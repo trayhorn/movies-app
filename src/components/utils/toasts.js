@@ -24,8 +24,8 @@ function addedToList(list_name) {
   return toast.success(`Added to ${list_name}`);
 }
 
-function errorAddingToList() {
-	return toast.error(`The movie already in the list`);
+function errorAddingToList(list_name) {
+	return toast.error(`The movie already in the list ${list_name}`);
 }
 
 function listNotAdded() {
